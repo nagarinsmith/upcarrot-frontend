@@ -1,0 +1,105 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.7",
+    "apisauce": "^1.0.2",
+    "babel-plugin-styled-components": "^1.10.0",
+    "bootstrap": "^4.2.1",
+    "classnames": "^2.2.6",
+    "core-js": "^2.6.1",
+    "eslint-import-resolver-babel-module": "^5.1.0",
+    "gh-pages": "^2.0.1",
+    "mobx": "^5.9.4",
+    "mobx-react-router": "^4.0.7",
+    "mobx-state-tree": "^3.14.0",
+    "moment": "^2.24.0",
+    "node-sass": "^4.13.0",
+    "prop-types": "^15.7.2",
+    "qs": "^6.7.0",
+    "react-addons-css-transition-group": "^15.6.2",
+    "react-app-polyfill": "^0.1.3",
+    "react-app-rewire-mobx": "^1.0.9",
+    "react-app-rewire-styled-components": "^3.0.2",
+    "react-app-rewired": "^2.0.2",
+    "react-countdown-now": "^2.1.2",
+    "react-dom": "^16.7.0",
+    "react-floating-action-button": "^1.0.5",
+    "react-loadable": "^5.5.0",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^4.3.1",
+    "react-test-renderer": "^16.7.0",
+    "reactstrap": "^6.5.0",
+    "semantic-ui-react": "^0.88.1",
+    "styled-components": "^4.0.0",
+    "universal-cookie": "^4.0.2"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-export-default-from": "^7.5.2",
+    "babel-plugin-import": "^1.11.0",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "customize-cra": "^0.2.9",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-config-react-app": "^5.0.2",
+    "eslint-plugin-flowtype": "2.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "1.5.0",
+    "husky": ">=1",
+    "lint-staged": ">=8",
+    "prettier": "1.17.0",
+    "react-app-rewire-sass-modules": "^1.1.7",
+    "react-scripts": "^3.2.0"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "test:cov": "react-app-rewired test --coverage",
+    "test:debug": "react-app-rewired --inspect-brk test --runInBand",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "eject": "react-app-rewired eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "legacyDecorators": true
+      }
+    }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 9",
+    "not op_mini all"
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!**/*index.js",
+      "!src/serviceWorker.js",
+      "!src/polyfill.js"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "@shared": "../components"
+}

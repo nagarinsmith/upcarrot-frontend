@@ -1,0 +1,24 @@
+.ui.button {
+  background: #ff0031;
+  color: white;
+  &:hover,
+  &:focus {
+    background: #ff1945;
+    color: white;
+  }
+}
+
+.ui.inverted.button {
+  &:hover {
+    background: #ff0031;
+    color: white;
+  }
+  &:focus {
+    background: transparent;
+    color: white;
+  }
+}
+
+.padding {
+  padding: 10px;
+}
