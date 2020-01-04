@@ -30,7 +30,7 @@ There are some scripts in the root package.json used for running all the project
 ```
 You need to run `yarn name_of_script` to run the application
 Eg
-```
+```bash
   yarn web // for web 
   yarn android // for android
   yarn desktop // for desktop
