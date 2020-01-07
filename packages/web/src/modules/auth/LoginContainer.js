@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+
 import {
   HeroContainer,
   LoginWrapper,
@@ -10,25 +12,41 @@ import {
 } from "src/components/index";
 
 // one dumb component in which we pass props and actions
-export default class LoginContainer extends Component {
-  state = {};
-  render() {
-    return (
-      <HeroContainer>
-        <LoginWrapper>
-          <Title>Title</Title>
-          <AuthInput type="text" label="Email" placeholder="john@doe.com" />
+const LoginContainer = () => {
+  const { register, handleSubmit, errors } = useForm();
+  const onSubmit = data => console.log(data);
+  console.log(errors);
+  return (
+    <HeroContainer>
+      <LoginWrapper>
+        <Title>Title</Title>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <AuthInput
+            type="text"
+            label="Email"
+            ref={register({ required: true })}
+            name="email"
+            placeholder="john@doe.com"
+          />
           <AuthInput
             type="password"
             label="Password"
+            ref={register({ required: true })}
+            name="password"
             placeholder="notYourBDay"
           />
-          <AuthButton title="Login" />
-          <AuthLink to="">Forgotten Password?</AuthLink>
-          <Delimiter>or</Delimiter>
-          <AuthLink to="">Neww here? Create new Account</AuthLink>
-        </LoginWrapper>
-      </HeroContainer>
-    );
-  }
-}
+          <AuthButton
+            title="Login"
+            type="submit"
+            onClick={() => console.log("test")}
+          />
+        </form>
+        <AuthLink to="">Forgotten Password?</AuthLink>
+        <Delimiter>or</Delimiter>
+        <AuthLink to="">Neww here? Create new Account</AuthLink>
+      </LoginWrapper>
+    </HeroContainer>
+  );
+};
+
+export default LoginContainer;

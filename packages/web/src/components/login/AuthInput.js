@@ -36,11 +36,11 @@ const Label = styled.div`
   letter-spacing: 3px;
 `;
 
-const AuthInput = ({ label, ...rest }) => (
+const AuthInput = React.forwardRef(({ label, ...rest }, ref) => (
   <AuthInputContainer>
     <Label>{label}</Label>
-    <AuthInputComponent {...rest} />
+    <AuthInputComponent {...rest} ref={ref} />
   </AuthInputContainer>
-);
+));
 
 export default AuthInput;
