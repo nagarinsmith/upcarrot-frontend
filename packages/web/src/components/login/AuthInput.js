@@ -19,6 +19,7 @@ const AuthInputComponent = styled.input`
   &:focus {
     border-bottom: 1px solid white;
   }
+  ${props => props.hasError && "border-color: red !important;"}
 `;
 
 const AuthInputContainer = styled.div`
@@ -36,10 +37,15 @@ const Label = styled.div`
   letter-spacing: 3px;
 `;
 
-const AuthInput = React.forwardRef(({ label, ...rest }, ref) => (
-  <AuthInputContainer>
+export const Error = styled.div`
+  color: red;
+`;
+
+const AuthInput = React.forwardRef(({ label, errors, ...rest }, ref) => (
+  <AuthInputContainer hasError={errors}>
     <Label>{label}</Label>
-    <AuthInputComponent {...rest} ref={ref} />
+    <AuthInputComponent {...rest} ref={ref} hasError={errors} />
+    {errors && <Error>{errors.message}</Error>}
   </AuthInputContainer>
 ));
 

@@ -6,8 +6,6 @@ const AuthButtonComponent = styled.button`
   width: 60%;
   height: 50px;
   color: white;
-  /* border: 3px white solid; */
-  /* border-radius: 10px; */
   font-size: 20px;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -20,6 +18,7 @@ const AuthButtonComponent = styled.button`
     box-shadow: 0 3px 25px rgb(248, 168, 20, 0.3),
       0 3px 6px rgb(248, 168, 20, 0.22);
   }
+  margin-bottom: 10px;
 `;
 
 export const AuthButton = ({ title, ...rest }) => (

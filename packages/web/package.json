@@ -37,7 +37,8 @@
     "reactstrap": "^6.5.0",
     "semantic-ui-react": "^0.88.1",
     "styled-components": "^4.0.0",
-    "universal-cookie": "^4.0.2"
+    "universal-cookie": "^4.0.2",
+    "yup": "^0.28.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.5.2",

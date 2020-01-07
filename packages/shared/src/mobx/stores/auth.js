@@ -7,7 +7,6 @@ import { getEnv } from "mobx-state-tree";
 const authStore = types
   .model("Auth", {
     token: "",
-    isLoading: types.optional(types.boolean, false),
     userData: types.optional(User, {})
   })
   .views(self => ({
@@ -47,7 +46,8 @@ const authStore = types
     },
 
     onError: error => {
-      self.setField("error", error.originalError);
+      console.log("AUTH ERROR", error);
+      // self.setField("error", error.originalError);
     },
     logout: flow(function*() {
       self.setLoading(true);
@@ -57,8 +57,5 @@ const authStore = types
     })
   }));
 
-const enhancedAuth = types.compose(
-  authStore,
-  baseStore
-);
+const enhancedAuth = types.compose(authStore, baseStore);
 export default enhancedAuth;
