@@ -25,9 +25,9 @@ export default class App extends Component {
     const {
       store: { auth }
     } = this.props;
-    console.log(this.props);
+
     return (
-      <ThemeProvider theme={theme} onClick={() => console.log(this.props)}>
+      <ThemeProvider theme={theme}>
         <AppWrapper>
           {/* <Header
             user={auth.userData}

@@ -7,6 +7,7 @@ import { getEnv } from "mobx-state-tree";
 const authStore = types
   .model("Auth", {
     token: "",
+    isLoading: true,
     userData: types.optional(User, {})
   })
   .views(self => ({
@@ -17,6 +18,7 @@ const authStore = types
   .actions(self => ({
     afterCreate: flow(function*() {
       self.token = yield self.getFromStorage("access_token");
+      if (self.token) self.setLoading(false);
     }),
     setLoading: value => {
       self.isLoading = value;

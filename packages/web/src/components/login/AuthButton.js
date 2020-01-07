@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const AuthButtonComponent = styled.button`
   background: #44f804;
@@ -19,8 +21,14 @@ const AuthButtonComponent = styled.button`
       0 3px 6px rgb(248, 168, 20, 0.22);
   }
   margin-bottom: 10px;
+  svg {
+    margin-left: 10px;
+  }
 `;
 
-export const AuthButton = ({ title, ...rest }) => (
-  <AuthButtonComponent {...rest}>{title}</AuthButtonComponent>
+export const AuthButton = ({ title, isLoading, ...rest }) => (
+  <AuthButtonComponent {...rest}>
+    {title}
+    {isLoading && <FontAwesomeIcon icon={faSpinner} pulse />}
+  </AuthButtonComponent>
 );

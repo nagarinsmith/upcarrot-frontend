@@ -23,7 +23,7 @@ const SignupSchema = yup.object().shape({
 });
 
 // one dumb component in which we pass props and actions
-const LoginContainer = ({ onSubmitForm, authError }) => {
+const LoginContainer = ({ onSubmitForm, authError, isLoading }) => {
   const { register, handleSubmit, errors } = useForm({
     validationSchema: SignupSchema
   });
@@ -40,6 +40,7 @@ const LoginContainer = ({ onSubmitForm, authError }) => {
             name="email"
             placeholder="john@doe.com"
             errors={errors["email"]}
+            disabled={isLoading}
           />
           <AuthInput
             type="password"
@@ -48,8 +49,9 @@ const LoginContainer = ({ onSubmitForm, authError }) => {
             name="password"
             placeholder="notYourBDay"
             errors={errors["password"]}
+            disabled={isLoading}
           />
-          <AuthButton title="Login" type="submit" />
+          <AuthButton title="Login" type="submit" isLoading={isLoading} />
         </LoginForm>
         {authError && <Error>Bad Credentials</Error>}
         {/* <AuthLink to="">Forgotten Password?</AuthLink> */}

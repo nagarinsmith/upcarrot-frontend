@@ -28,8 +28,6 @@ const Line = styled.div`
 
 const Dot = styled.div`
   background: #0d0d17;
-  /* background: yellow; */
-  /* padding: 5px; */
   height: 30px;
   width: 30px;
   text-align: center;

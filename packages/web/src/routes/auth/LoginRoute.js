@@ -22,13 +22,14 @@ export default class LoginRoute extends Component {
   render() {
     const {
       store: {
-        auth: { error: authError }
+        auth: { error: authError, isLoading }
       }
     } = this.props;
     return (
       <LoginContainer
         onSubmitForm={this.onSubmitForm}
         authError={authError && authError.status === 401}
+        isLoading={isLoading}
       />
     );
   }
