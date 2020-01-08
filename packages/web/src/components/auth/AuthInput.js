@@ -24,7 +24,7 @@ const AuthInputComponent = styled.input`
 
 const AuthInputContainer = styled.div`
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   color: hsla(229, 6%, 43%, 1);
   transition: all 0.2s ease-in;
   &:focus-within {

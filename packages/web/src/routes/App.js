@@ -13,6 +13,7 @@ import { RoutePrivate, RoutePublic } from "../components";
 import Dashboard from "./dashboard/DashboardRoute";
 import NotFound from "./common/NotFound";
 import { AppWrapper } from "@/components";
+import SidebarTest, { withSidebar } from "src/components/layout/Sidebar";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
 
@@ -36,13 +37,15 @@ export default class App extends Component {
             location={location}
             isHome={location.pathname === "/"}
           /> */}
+          {/* {auth.isLoggedIn && <SidebarTest />} */}
+          {/* <SidebarTest /> */}
           <Switch>
             <RoutePrivate
               isAuthenticated={auth.isLoggedIn}
               path="/"
               to="/login"
               exact
-              component={Dashboard}
+              component={withSidebar(Dashboard)}
             />
             <RoutePublic
               isAuthenticated={auth.isLoggedIn}
@@ -58,7 +61,7 @@ export default class App extends Component {
               exact
               component={Register}
             />
-            <Route component={NotFound} />
+            <Route component={withSidebar(NotFound)} />
           </Switch>
         </AppWrapper>
       </ThemeProvider>
