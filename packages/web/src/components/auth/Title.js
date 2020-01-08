@@ -12,6 +12,8 @@ export const TitleContainer = styled.div`
     height: 60px;
     font-size: 30px;
   }
+
+  ${props => props.styles}
 `;
 
 export const Green = styled.div`
@@ -21,8 +23,8 @@ export const Orange = styled.div`
   color: #f8a814;
 `;
 
-export const Title = () => (
-  <TitleContainer>
+export const Title = ({ styles }) => (
+  <TitleContainer styles={styles}>
     <Green>Up</Green>
     <Orange>Carrot</Orange>
   </TitleContainer>

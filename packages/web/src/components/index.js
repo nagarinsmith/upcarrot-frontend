@@ -9,3 +9,4 @@ export { AuthButton } from "./auth/AuthButton";
 export { AuthLink } from "./auth/AuthLink";
 export { Delimiter } from "./auth/Delimiter";
 export { LoginForm } from "./auth/LoginForm";
+export { SidebarContainer } from "./layout/Sidebar";

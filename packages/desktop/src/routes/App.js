@@ -12,8 +12,6 @@ import { RoutePrivate, RoutePublic } from "../components";
 import Dashboard from "./dashboard/DashboardRoute";
 import NotFound from "./common/NotFound";
 import { AppWrapper } from "@/components";
-// import Header from "@/components/layout/Header/Header";
-// import PresentationRoute from "./presentation/PresentationRoute";
 
 // try to use as much function components as possible but when using
 // decorators stick to class components
