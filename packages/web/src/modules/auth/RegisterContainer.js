@@ -26,7 +26,7 @@ const RegisterSchema = yup.object().shape({
         .oneOf([yup.ref('password'), null], 'Password must match')
 })
 
-const RegisterContainer = ({ onSubmitForm, isLoading }) => {
+const RegisterContainer = ({ onSubmitForm, authError, isLoading }) => {
     const { register, handleSubmit, errors } = useForm({
         validationSchema: RegisterSchema
     });

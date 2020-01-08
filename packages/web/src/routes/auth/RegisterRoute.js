@@ -20,12 +20,13 @@ export default class RegisterRoute extends Component {
   render() {
     const {
       store: {
-        auth: { error: isLoading }
+        auth: { error:  authError, isLoading }
       }
     } = this.props;
     return (
             <RegisterContainer 
                 onSubmitForm={this.onSubmitForm}
+                authError={authError}
                 isLoading={isLoading}
             />
         );
