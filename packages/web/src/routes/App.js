@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 import Login from "./auth/LoginRoute";
+import Register from "./auth/RegisterRoute";
 
 import theme from "../constans/theme/theme";
 
@@ -53,9 +54,9 @@ export default class App extends Component {
             <RoutePublic
               isAuthenticated={auth.isLoggedIn}
               path="/register"
-              to="dashboard"
+              to="/"
               exact
-              component={Login}
+              component={Register}
             />
             <Route component={NotFound} />
           </Switch>

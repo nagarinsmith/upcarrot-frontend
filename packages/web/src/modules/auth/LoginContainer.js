@@ -4,14 +4,14 @@ import * as yup from "yup";
 
 import {
   HeroContainer,
-  LoginWrapper,
+  AuthWrapper,
   AuthInput,
   Title,
   AuthButton,
   AuthLink,
   Delimiter,
   Error,
-  LoginForm
+  AuthForm
 } from "src/components/index";
 
 const SignupSchema = yup.object().shape({
@@ -30,9 +30,9 @@ const LoginContainer = ({ onSubmitForm, authError, isLoading }) => {
 
   return (
     <HeroContainer>
-      <LoginWrapper>
+      <AuthWrapper>
         <Title>Title</Title>
-        <LoginForm onSubmit={handleSubmit(onSubmitForm)}>
+        <AuthForm onSubmit={handleSubmit(onSubmitForm)}>
           <AuthInput
             type="text"
             label="Email"
@@ -47,17 +47,17 @@ const LoginContainer = ({ onSubmitForm, authError, isLoading }) => {
             label="Password"
             ref={register({ required: true })}
             name="password"
-            placeholder="notYourBDay"
+            placeholder="Password"
             errors={errors["password"]}
             disabled={isLoading}
           />
           <AuthButton title="Login" type="submit" isLoading={isLoading} />
-        </LoginForm>
+        </AuthForm>
         {authError && <Error>Bad Credentials</Error>}
         {/* <AuthLink to="">Forgotten Password?</AuthLink> */}
         <Delimiter>or</Delimiter>
-        <AuthLink to="">Neww here? Create new Account</AuthLink>
-      </LoginWrapper>
+        <AuthLink to="/register">New here? Create new account</AuthLink>
+      </AuthWrapper>
     </HeroContainer>
   );
 };
