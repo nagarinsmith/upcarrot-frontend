@@ -18,6 +18,7 @@ const LinkContainer = styled.div`
   a {
     transition: all 0.2s ease-in;
   }
+  text-align: center;
 `;
 
 export const AuthLink = ({ to, ...rest }) => (

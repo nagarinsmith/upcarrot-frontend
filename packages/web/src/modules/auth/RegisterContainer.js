@@ -48,7 +48,7 @@ const RegisterContainer = ({ onSubmitForm, authError, isLoading }) => {
             label="Password"
             ref={register({ required: true })}
             name="password"
-            placeholder="Password"
+            placeholder="notYourBday"
             errors={errors["password"]}
             disabled={isLoading}
           />
@@ -57,7 +57,7 @@ const RegisterContainer = ({ onSubmitForm, authError, isLoading }) => {
             label="Confirm password"
             ref={register({ required: true })}
             name="confirmPassword"
-            placeholder="Confirm password"
+            placeholder="notYourBday again"
             errors={errors["confirmPassword"]}
             disabled={isLoading}
           />
