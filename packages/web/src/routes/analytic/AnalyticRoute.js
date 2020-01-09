@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import ChartContainer2 from "src/modules/chart/Chart2Container";
+import AnalyticContainer from "src/modules/chart/AnalyticContainer";
 
 @inject("store")
 @observer
-export default class Chart2 extends Component {
+export default class Analytic extends Component {
   state = {};
   render() {
     const {
@@ -13,7 +13,8 @@ export default class Chart2 extends Component {
     } = this.props;
     return (
       <div>
-        <ChartContainer2/>;
+        <AnalyticContainer/>;
+        
       </div>
     );
   }

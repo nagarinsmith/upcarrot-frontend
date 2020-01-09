@@ -1,0 +1,25 @@
+import React, { Component } from "react";
+import {VictoryPie, VictoryLabel}  from "victory";
+
+
+export const PieChart = ({ children }) => (
+  <svg viewBox = "-60 10 800 800"> 
+  <VictoryPie
+    standalone={false}
+     colorScale={["#92CD28", "#B6EE56", "#44f804", "#FFA33F", "#F78914" ]}
+    padAngle={({ datum }) => datum.y}
+    style={ { labels: { fontSize: 25, fill: "white"} }}
+    labelRadius={170}
+    innerRadius={150}
+    width={600} height={600} 
+    data= {[{ x: "January", y: 2, label:  "group" }, { x: "January", y: 3, label:  "personal"}, { x:"January", y: 4, label: "group" },
+    { x: "January", y: 5, label:  "maintenance"}]}
+    />
+      <VictoryLabel
+      textAnchor="middle"
+      style={{ fontSize: 50, fill: "white"}}
+      x={300} y={300}
+      text="Ceva!"
+    />
+    </svg>
+)
