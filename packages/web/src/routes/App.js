@@ -13,7 +13,7 @@ import { RoutePrivate, RoutePublic } from "../components";
 import Dashboard from "./dashboard/DashboardRoute";
 import NotFound from "./common/NotFound";
 import { AppWrapper } from "@/components";
-import SidebarTest, { withSidebar } from "src/components/layout/Sidebar";
+import { withSidebar } from "src/components/layout/Sidebar";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
 
@@ -31,14 +31,6 @@ export default class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <AppWrapper>
-          {/* <Header
-            user={auth.userData}
-            logout={auth.logout}
-            location={location}
-            isHome={location.pathname === "/"}
-          /> */}
-          {/* {auth.isLoggedIn && <SidebarTest />} */}
-          {/* <SidebarTest /> */}
           <Switch>
             <RoutePrivate
               isAuthenticated={auth.isLoggedIn}

@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 import { Title } from "../auth/Title";
 import "./style.css";
 import { Link } from "react-router-dom";
-import { AuthLink } from "../auth/AuthLink";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const SidebarLink = styled.div`
   color: white;
@@ -118,20 +119,33 @@ const styles2 = {
   }
 };
 
-const MaterialTitlePanel = props => {
-  const rootStyle = props.style
-    ? { ...styles2.root, ...props.style }
-    : styles.root;
-
-  return (
-    <div style={rootStyle}>
-      <div style={styles2.header}>{props.title}</div>
-      {props.children}
-    </div>
-  );
-};
+const SidebarTopTab = styled.div`
+  position: fixed;
+  width: 100%;
+  display: flex;
+  background: #151523;
+  z-index: 2;
+  box-shadow: 0 3px 25px rgb(0, 0, 0, 0.3), 0 3px 6px rgb(0, 0, 0, 0.22);
+`;
 
 const mql = window.matchMedia(`(min-width: 800px)`);
+
+const ChildrenContainer = styled.div`
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  position: relative;
+  ${props => !props.docked && "padding-top: 70px;"}
+`;
+
+const MenuIcon = styled.div`
+  height: 70px;
+  margin-left: 15px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+`;
 
 export default class SidebarTest extends React.Component {
   constructor(props) {
@@ -179,23 +193,8 @@ export default class SidebarTest extends React.Component {
       location: { pathname }
     } = this.props;
     const sidebar = <SidebarContent pathname={pathname} />;
-
+    const { docked } = this.state;
     console.log(this.props);
-
-    const contentHeader = (
-      <span>
-        {!this.state.docked && (
-          <a
-            onClick={this.toggleOpen}
-            href="#"
-            style={styles.contentHeaderMenuLink}
-          >
-            =
-          </a>
-        )}
-        <span> Responsive React Sidebar</span>
-      </span>
-    );
 
     const sidebarProps = {
       sidebar,
@@ -204,8 +203,13 @@ export default class SidebarTest extends React.Component {
       onSetOpen: this.onSetOpen,
       styles: {
         sidebar: {
-          boxShadow:
-            "0 3px 25px rgb(248, 168, 20, 0.3), 0 3px 6px rgb(248, 168, 20, 0.22)"
+          zIndex: 4
+        },
+        overlay: { zIndex: 3 },
+        content: {
+          overflowY: "auto",
+          paddingRight: 50,
+          right: -50
         }
       },
       sidebarClassName: "sidebar"
@@ -213,27 +217,17 @@ export default class SidebarTest extends React.Component {
 
     return (
       <Sidebar {...sidebarProps}>
-        {this.props.children}
-        {/* <MaterialTitlePanel title={contentHeader}>
-          <div style={styles.content}>
-            <p>
-              This example will automatically dock the sidebar if the page width
-              is above 800px (which is currently {this.state.docked.toString()}
-              ).
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic,
-              placeat aspernatur alias quisquam inventore, quod earum illum
-              laborum rerum neque veritatis nesciunt nulla saepe cumque harum!
-              Cumque aut pariatur sunt. This functionality should live in the
-              component that renders the sidebar. This way you&#39;re able to
-              modify the sidebar and main content based on the responsiveness
-              data. For example, the menu button in the header of the content is
-              now {this.state.docked ? "hidden" : "shown"} because the sidebar
-              is {!this.state.docked && "not"} visible.
-            </p>
-          </div>
-        </MaterialTitlePanel> */}
+        {!docked && (
+          <SidebarTopTab>
+            <MenuIcon onClick={this.toggleOpen}>
+              <FontAwesomeIcon icon={faBars} />
+            </MenuIcon>
+            <Title styles="font-size: 30px; padding: 10px; align-items: center" />
+          </SidebarTopTab>
+        )}
+        <ChildrenContainer docked={docked}>
+          {this.props.children}
+        </ChildrenContainer>
       </Sidebar>
     );
   }
