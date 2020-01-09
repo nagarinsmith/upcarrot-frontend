@@ -10,6 +10,8 @@ import theme from "../constans/theme/theme";
 
 import { RoutePrivate, RoutePublic } from "../components";
 import Dashboard from "./dashboard/DashboardRoute";
+import Chart from "./chart/ChartRoute";
+import Chart2 from "./chart/Chart2Route";
 import NotFound from "./common/NotFound";
 import { AppWrapper } from "@/components";
 // import Header from "@/components/layout/Header/Header";
@@ -49,6 +51,20 @@ export default class App extends Component {
               to="/"
               exact
               component={Login}
+            />
+            <RoutePublic
+              isAuthenticated={auth.isLoggedIn}
+              path="/sds"
+              to="/"
+              exact
+              component={Chart}
+            />
+            <RoutePublic
+              isAuthenticated={auth.isLoggedIn}
+              path="/sds2"
+              to="/"
+              exact
+              component={Chart2}
             />
             <RoutePublic
               isAuthenticated={auth.isLoggedIn}
