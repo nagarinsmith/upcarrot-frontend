@@ -65,7 +65,7 @@
   },
   "main": "public/electron.js",
   "scripts": {
-    "electron-dev": "concurrently \"BROWSER=none yarn workspace desktop start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-dev": "concurrently \"yarn workspace desktop start\" \"wait-on http://localhost:3000 && electron .\"",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",

@@ -14,6 +14,7 @@ import Dashboard from "./dashboard/DashboardRoute";
 import NotFound from "./common/NotFound";
 import { AppWrapper } from "@/components";
 import SidebarTest, { withSidebar } from "src/components/layout/Sidebar";
+import Expense from "./expenses/ExpenseRoute";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
 
@@ -54,6 +55,21 @@ export default class App extends Component {
               exact
               component={Login}
             />
+            <RoutePublic
+              isAuthenticated={auth.isLoggedIn}
+              path="/sds"
+              to="/"
+              exact
+              component={Analytic}
+            />
+            <RoutePublic
+              isAuthenticated={auth.isLoggedIn}
+              path="/expenses"
+              to="/"
+              exact
+              component={Expense}
+            />
+
             <RoutePublic
               isAuthenticated={auth.isLoggedIn}
               path="/register"
