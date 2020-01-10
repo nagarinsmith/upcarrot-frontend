@@ -203,9 +203,9 @@ export default class SidebarTest extends React.Component {
       onSetOpen: this.onSetOpen,
       styles: {
         sidebar: {
-          zIndex: 99994
+          zIndex: 4
         },
-        overlay: { zIndex: 99993 },
+        overlay: { zIndex: 3 },
         content: {
           overflowY: "auto",
           paddingRight: 50,

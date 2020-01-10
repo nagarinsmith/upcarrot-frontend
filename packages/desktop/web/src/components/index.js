@@ -10,7 +10,3 @@ export { AuthLink } from "./auth/AuthLink";
 export { Delimiter } from "./auth/Delimiter";
 export { AuthForm } from "./auth/AuthForm";
 export { SidebarContainer } from "./layout/Sidebar";
-export {
-  default as FloatingActionButton
-} from "./layout/FloatingActionButton.js";
-export { default as Modal } from "./layout/Modal";

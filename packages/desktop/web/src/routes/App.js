@@ -14,7 +14,6 @@ import Dashboard from "./dashboard/DashboardRoute";
 import NotFound from "./common/NotFound";
 import { AppWrapper } from "@/components";
 import { withSidebar } from "src/components/layout/Sidebar";
-import { FloatingActionButton, Modal } from "src/components/index";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
 
@@ -57,8 +56,6 @@ export default class App extends Component {
             <Route component={withSidebar(NotFound)} />
           </Switch>
         </AppWrapper>
-        <Modal>muie cfr</Modal>
-        <FloatingActionButton />
       </ThemeProvider>
     );
   }

@@ -11549,6 +11549,11 @@ react-test-renderer@^16.7.0:
     react-is "^16.8.6"
     scheduler "^0.18.0"
 
+react-tiny-fab@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-tiny-fab/-/react-tiny-fab-3.2.0.tgz#cc169e91eacb9248aa95244a7ba0fe97526f73e8"
+  integrity sha512-cAF6u/UOCiO5yixIUfBQlFYmkUcD5a7Uzy1kbXaly/zAUILSnQns/FEm22xNJ+S5he0XEYnn11XAUtbnstaN5A==
+
 react-transition-group@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-1.2.1.tgz#e11f72b257f921b213229a774df46612346c7ca6"
