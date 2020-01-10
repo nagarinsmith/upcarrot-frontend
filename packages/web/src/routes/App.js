@@ -12,6 +12,7 @@ import theme from "../constans/theme/theme";
 
 import { RoutePrivate, RoutePublic } from "../components";
 import Dashboard from "./dashboard/DashboardRoute";
+import Analytic from "./analytic/AnalyticRoute";
 import NotFound from "./common/NotFound";
 import { AppWrapper } from "@/components";
 import { withSidebar } from "src/components/layout/Sidebar";
@@ -67,6 +68,14 @@ export default class App extends Component {
               to="/login"
               exact
               component={withSidebar(NotFound)}
+            />
+
+            <RoutePrivate
+              isAuthenticated={auth.isLoggedIn}
+              path="/analytics"
+              to="/"
+              exact
+              component={withSidebar(Analytic)}
             />
 
             <RoutePublic

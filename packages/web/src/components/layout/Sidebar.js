@@ -212,7 +212,8 @@ export default class SidebarTest extends React.Component {
           right: -50
         }
       },
-      sidebarClassName: "sidebar"
+      sidebarClassName: "sidebar",
+      transitions: false
     };
 
     return (
