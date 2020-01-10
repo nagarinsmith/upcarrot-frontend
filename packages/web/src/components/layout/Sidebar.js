@@ -58,7 +58,7 @@ const routes = [
     title: "expenses"
   },
   {
-    to: "/orrowed",
+    to: "/borrowed",
     title: "Borrowed"
   },
   {

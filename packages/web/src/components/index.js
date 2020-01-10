@@ -14,3 +14,6 @@ export {
   default as FloatingActionButton
 } from "./layout/FloatingActionButton.js";
 export { default as Modal } from "./layout/Modal";
+export { BorrowedWrapper } from "./borrowed/BorrowedWrapper";
+export { BorrowedFilters } from "./borrowed/BorrowedFilters";
+export { Card } from "./borrowed/Card";

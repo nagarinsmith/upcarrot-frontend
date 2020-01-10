@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 
 import Login from "./auth/LoginRoute";
 import Register from "./auth/RegisterRoute";
+import Borrowed from "./borrowed/BorrowedRoute";
 
 import theme from "../constans/theme/theme";
 
@@ -74,6 +75,13 @@ export default class App extends Component {
               to="/"
               exact
               component={Register}
+            />
+            <RoutePrivate
+              isAuthenticated={auth.isLoggedIn}
+              path="/borrowed"
+              to="/"
+              exact
+              component={withSidebar(Borrowed)}
             />
             <Route component={withSidebar(NotFound)} />
           </Switch>
