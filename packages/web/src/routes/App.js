@@ -15,6 +15,8 @@ import NotFound from "./common/NotFound";
 import { AppWrapper } from "@/components";
 import { withSidebar } from "src/components/layout/Sidebar";
 import { FloatingActionButton, Modal } from "src/components/index";
+import Expense from "./expenses/ExpenseRoute";
+import AddExpenseContainer from "src/modules/expense/AddExpenseContainer";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
 
@@ -24,10 +26,14 @@ import { FloatingActionButton, Modal } from "src/components/index";
 @withRouter
 @observer
 export default class App extends Component {
+  state = {};
+
   render() {
     const {
       store: { auth }
     } = this.props;
+
+    const { isOpen } = this.state;
 
     return (
       <ThemeProvider theme={theme}>
@@ -47,6 +53,21 @@ export default class App extends Component {
               exact
               component={Login}
             />
+            {/* <RoutePublic
+              isAuthenticated={auth.isLoggedIn}
+              path="/sds"
+              to="/"
+              exact
+              component={Analyti}
+            /> */}
+            <RoutePrivate
+              isAuthenticated={auth.isLoggedIn}
+              path="/expenses"
+              to="/login"
+              exact
+              component={withSidebar(NotFound)}
+            />
+
             <RoutePublic
               isAuthenticated={auth.isLoggedIn}
               path="/register"
@@ -57,8 +78,14 @@ export default class App extends Component {
             <Route component={withSidebar(NotFound)} />
           </Switch>
         </AppWrapper>
-        <Modal>muie cfr</Modal>
-        <FloatingActionButton />
+        <Modal isOpen={isOpen} close={() => this.setState({ isOpen: false })}>
+          <AddExpenseContainer />
+        </Modal>
+        {auth.isLoggedIn && (
+          <FloatingActionButton
+            addExpense={() => this.setState({ isOpen: true })}
+          />
+        )}
       </ThemeProvider>
     );
   }
