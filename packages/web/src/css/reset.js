@@ -189,6 +189,10 @@ const reset = css`
     font-family: "Roboto", sans-serif;
   }
 
+  .or {
+    z-index: 1 !important;
+  }
+
   .or::before {
     color: rgb(21, 21, 35) !important;
     font-family: "Roboto", sans-serif !important;

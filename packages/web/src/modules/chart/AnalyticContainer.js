@@ -11,28 +11,42 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
 `;
 
-const Pie = styled.div`
-  /* height: 400px;
-  width: 400px; */
+const ChartContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  ${({ pie }) => pie && "align-items: center"};
+  width: 100%;
+  height: 100%;
+
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+`;
+
+const PieContainer = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 export default class AnaylticContainer extends Component {
   render() {
     return (
       <Container>
-        <div>
-          <Pie>
+        <ChartContainer pie>
+          <PieContainer>
             <PieChart />
-          </Pie>
+          </PieContainer>
           <AreaChart />
-        </div>
-        <div>
+        </ChartContainer>
+        <ChartContainer>
           <BarChart />
           <VoronoiChart />
-        </div>
+        </ChartContainer>
       </Container>
     );
   }

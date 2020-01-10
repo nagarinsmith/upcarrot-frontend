@@ -58,7 +58,7 @@ const routes = [
     title: "expenses"
   },
   {
-    to: "/orrowed",
+    to: "/borrowed",
     title: "Borrowed"
   },
   {
@@ -124,7 +124,6 @@ const SidebarTopTab = styled.div`
   width: 100%;
   display: flex;
   background: #151523;
-  z-index: 2;
   box-shadow: 0 3px 25px rgb(0, 0, 0, 0.3), 0 3px 6px rgb(0, 0, 0, 0.22);
 `;
 
