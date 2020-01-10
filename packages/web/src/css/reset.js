@@ -120,12 +120,23 @@ const reset = css`
     text-shadow: 0 0 0 #000;
   }
 
-  // body {
+  .ui.button {
+    color: lightgray;
+    background-color: rgb(21, 21, 35);
+    font-family: "Roboto", sans-serif;
+  }
+
+  .or::before {
+    color: rgb(21, 21, 35) !important;
+    font-family: "Roboto", sans-serif !important;
+  }
+
+  /* // body {
   //     box-sizing: border-box;
   //     background: linear-gradient(rgba(0, 0, 0, 1), rgb(142, 14, 0));
   //     background-repeat: no-repeat;
   //     background-attachment: fixed;
-  // }
+  // } */
 `;
 
 export default reset;

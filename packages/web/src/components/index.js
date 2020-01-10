@@ -10,3 +10,6 @@ export { AuthLink } from "./auth/AuthLink";
 export { Delimiter } from "./auth/Delimiter";
 export { AuthForm } from "./auth/AuthForm";
 export { SidebarContainer } from "./layout/Sidebar";
+export { BorrowedWrapper } from "./borrowed/BorrowedWrapper";
+export { BorrowedFilters } from "./borrowed/BorrowedFilters";
+export { Card } from "./borrowed/Card";
