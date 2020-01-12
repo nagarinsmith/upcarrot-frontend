@@ -19,6 +19,7 @@ import { withSidebar } from "src/components/layout/Sidebar";
 import { FloatingActionButton, Modal } from "src/components/index";
 import Expense from "./expenses/ExpenseRoute";
 import AddExpenseContainer from "src/modules/expense/AddExpenseContainer";
+import AddEventContainer from "src/modules/event/AddEventContainer";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
 
@@ -35,7 +36,7 @@ export default class App extends Component {
       store: { auth }
     } = this.props;
 
-    const { isOpen } = this.state;
+    const { isOpenEvent, isOpenExpense } = this.state;
 
     return (
       <ThemeProvider theme={theme}>
@@ -62,7 +63,7 @@ export default class App extends Component {
               exact
               component={Analyti}
             /> */}
-            <RoutePrivate
+            <RoutePublic
               isAuthenticated={auth.isLoggedIn}
               path="/expenses"
               to="/login"
@@ -70,7 +71,7 @@ export default class App extends Component {
               component={withSidebar(NotFound)}
             />
 
-            <RoutePrivate
+            <RoutePublic
               isAuthenticated={auth.isLoggedIn}
               path="/analytics"
               to="/"
@@ -85,7 +86,7 @@ export default class App extends Component {
               exact
               component={Register}
             />
-            <RoutePrivate
+            <RoutePublic
               isAuthenticated={auth.isLoggedIn}
               path="/borrowed"
               to="/"
@@ -95,14 +96,22 @@ export default class App extends Component {
             <Route component={withSidebar(NotFound)} />
           </Switch>
         </AppWrapper>
-        <Modal isOpen={isOpen} close={() => this.setState({ isOpen: false })}>
-          <AddExpenseContainer />
+        <Modal isOpen={isOpenEvent || isOpenExpense} close={() => this.setState({ isOpenEvent: false, isOpenExpense: false})}>
+            {isOpenEvent && <AddEventContainer />}
+            {isOpenExpense && <AddExpenseContainer/>}
         </Modal>
-        {auth.isLoggedIn && (
+
+        {//auth.isLoggedIn && (
           <FloatingActionButton
-            addExpense={() => this.setState({ isOpen: true })}
+            addExpense={() => this.setState({ isOpenExpense: true })}
+            addEvent={() => this.setState({ isOpenEvent: true })}
+            
+      
+           
           />
-        )}
+          
+       // )
+        }
       </ThemeProvider>
     );
   }
