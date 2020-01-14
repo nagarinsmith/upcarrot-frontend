@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from "react";
 import { BorrowedWrapper, BorrowedFilters, Card } from "src/components/index";
-
 const emptyItem = {
   id: "",
   name: "",

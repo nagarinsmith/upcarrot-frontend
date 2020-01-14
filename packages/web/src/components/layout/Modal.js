@@ -18,6 +18,7 @@ const ModalExampleDimmer = ({ isOpen, close, children }) => (
     dimmer="blurring"
     open={isOpen}
     onClose={close}
+    
     style={{ ...modalStyles.text, ...modalStyles.body }}
   >
     <Modal.Header
@@ -27,7 +28,7 @@ const ModalExampleDimmer = ({ isOpen, close, children }) => (
         ...modalStyles.borderBottom
       }}
     >
-      Add expense
+       
     </Modal.Header>
     <Modal.Content
       style={{
