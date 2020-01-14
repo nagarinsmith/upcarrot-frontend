@@ -102,6 +102,13 @@ export default class App extends Component {
         </AppWrapper>
         <Modal
           isOpen={isOpenEvent || isOpenExpense}
+          title={
+            isOpenEvent
+              ? "Add new Event"
+              : isOpenExpense
+              ? "Add new Expense"
+              : "Add new Borrow"
+          }
           close={() =>
             this.setState({ isOpenEvent: false, isOpenExpense: false })
           }
@@ -109,22 +116,21 @@ export default class App extends Component {
           {isOpenEvent && <AddEventContainer />}
           {isOpenExpense && (
             <AddExpenseContainer
-              close={() => this.setState({ isOpen: false })}
+              close={() =>
+                this.setState({ isOpenEvent: false, isOpenExpense: false })
+              }
               onSubmitForm={() => this.setState({ isOpen: false })}
               addExpense={addExpense}
             />
           )}
         </Modal>
 
-        {
-          //auth.isLoggedIn && (
+        {auth.isLoggedIn && (
           <FloatingActionButton
             addExpense={() => this.setState({ isOpenExpense: true })}
             addEvent={() => this.setState({ isOpenEvent: true })}
           />
-
-          // )
-        }
+        )}
       </ThemeProvider>
     );
   }

@@ -13,7 +13,7 @@ import * as yup from "yup";
 import ExpenseInput from "src/components/expenses/ExpenseInput";
 import { HeroContainer } from "src/components/index";
 import styled from "styled-components";
-import moment from "../../../../../../../../Library/Caches/typescript/3.7/node_modules/moment/moment";
+import moment from "moment";
 
 const AddExpenseSchema = yup.object().shape({
   total: yup.number().required("Total is required"),
@@ -39,6 +39,7 @@ const RowContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 const DateContainer = styled.div`
@@ -69,6 +70,11 @@ const colourStyles = {
   }
 };
 
+export const Error = styled.div`
+  color: red;
+`;
+
+
 const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
   const { handleSubmit, setValue, watch, register, errors } = useForm({
     validationSchema: AddExpenseSchema
@@ -88,49 +94,57 @@ const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
     addExpense({ ...rest, date: moment(date).toISOString() });
   };
 
-  console.log(values);
 
   return (
     <>
-      <ExpenseForm onSubmit={handleSubmit(onSubmitForm)}>
-        <ExpenseInput
-          type="text"
-          label="Description"
-          name="description"
-          placeholder="Bought things"
-          ref={register({ required: true })}
-          disabled={isLoading}
-        />
-        <ExpenseInput
-          type="number"
-          label="Total"
-          name="total"
-          placeholder="Not a lot hopefully"
-          ref={register({ required: true })}
-          disabled={isLoading}
-        />
-        <RowContainer>
-          <DateContainer>
-            <FontAwesomeIcon icon={faCalendarAlt} style={{ margin: 10 }} />
-            <DatePicker
-              selected={values.date}
-              onChange={value => setValue("date", value)}
-            />
-          </DateContainer>
-          <div style={{ width: "230px", padding: "20px" }}>
-            <Select
-              options={categories}
-              styles={colourStyles}
-              value={select}
-              onChange={value => {
-                console.log(value);
-                setSelect(value);
-                setValue("category", value.value);
-              }}
-            />
-          </div>
-        </RowContainer>
-      </ExpenseForm>
+      <Modal.Content
+        style={{
+          ...modalStyles.text,
+          ...modalStyles.body,
+          ...modalStyles.borderBottom
+        }}
+      >
+        <ExpenseForm onSubmit={handleSubmit(onSubmitForm)}>
+          <ExpenseInput
+            type="text"
+            label="Description"
+            name="description"
+            placeholder="Bought things"
+            ref={register({ required: true })}
+            disabled={isLoading}
+          />
+          <ExpenseInput
+            type="number"
+            label="Total"
+            name="total"
+            placeholder="Not a lot hopefully"
+            ref={register({ required: true })}
+            disabled={isLoading}
+          />
+          <RowContainer>
+            <DateContainer>
+              <FontAwesomeIcon icon={faCalendarAlt} style={{ margin: 10 }} />
+              <DatePicker
+                selected={values.date}
+                onChange={value => setValue("date", value)}
+              />
+            </DateContainer>
+            <div style={{ width: "230px", padding: "20px" }}>
+              <Select
+                options={categories}
+                styles={colourStyles}
+                value={select}
+                onChange={value => {
+                  setSelect(value);
+                  setValue("category", value.value);
+                }}
+              />
+            </div>
+          </RowContainer>
+        </ExpenseForm>
+        {Object.keys(errors).length > 0 && <Error>Invalid Data</Error>}
+
+      </Modal.Content>
       <Modal.Actions style={{ ...modalStyles.text, ...modalStyles.body }}>
         <Button className="cancelNumber" onClick={close}>
           Cancel

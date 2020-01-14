@@ -39,6 +39,7 @@ const RowContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 const DateContainer = styled.div`
@@ -92,45 +93,47 @@ const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
 
   return (
     <>
-      <ExpenseForm onSubmit={handleSubmit(onSubmitForm)}>
-        <ExpenseInput
-          type="text"
-          label="Description"
-          name="description"
-          placeholder="Bought things"
-          ref={register({ required: true })}
-          disabled={isLoading}
-        />
-        <ExpenseInput
-          type="number"
-          label="Total"
-          name="total"
-          placeholder="Not a lot hopefully"
-          ref={register({ required: true })}
-          disabled={isLoading}
-        />
-        <RowContainer>
-          <DateContainer>
-            <FontAwesomeIcon icon={faCalendarAlt} style={{ margin: 10 }} />
-            <DatePicker
-              selected={values.date}
-              onChange={value => setValue("date", value)}
-            />
-          </DateContainer>
-          <div style={{ width: "230px", padding: "20px" }}>
-            <Select
-              options={categories}
-              styles={colourStyles}
-              value={select}
-              onChange={value => {
-                console.log(value);
-                setSelect(value);
-                setValue("category", value.value);
-              }}
-            />
-          </div>
-        </RowContainer>
-      </ExpenseForm>
+      <Modal.Content>
+        <ExpenseForm onSubmit={handleSubmit(onSubmitForm)}>
+          <ExpenseInput
+            type="text"
+            label="Description"
+            name="description"
+            placeholder="Bought things"
+            ref={register({ required: true })}
+            disabled={isLoading}
+          />
+          <ExpenseInput
+            type="number"
+            label="Total"
+            name="total"
+            placeholder="Not a lot hopefully"
+            ref={register({ required: true })}
+            disabled={isLoading}
+          />
+          <RowContainer>
+            <DateContainer>
+              <FontAwesomeIcon icon={faCalendarAlt} style={{ margin: 10 }} />
+              <DatePicker
+                selected={values.date}
+                onChange={value => setValue("date", value)}
+              />
+            </DateContainer>
+            <div style={{ width: "230px", padding: "20px" }}>
+              <Select
+                options={categories}
+                styles={colourStyles}
+                value={select}
+                onChange={value => {
+                  console.log(value);
+                  setSelect(value);
+                  setValue("category", value.value);
+                }}
+              />
+            </div>
+          </RowContainer>
+        </ExpenseForm>
+      </Modal.Content>
       <Modal.Actions style={{ ...modalStyles.text, ...modalStyles.body }}>
         <Button className="cancelNumber" onClick={close}>
           Cancel
