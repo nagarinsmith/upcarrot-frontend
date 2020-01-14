@@ -1,18 +1,30 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import AddExpenseContainer from "src/modules/expense/AddExpenseContainer";
+import ExpenseContainer from "src/modules/expense/ExpenseContainer";
 
 @inject("store")
 @observer
 export default class Expense extends Component {
-  state = {};
+  componentDidMount() {
+    const {
+      store: {
+        expense: { getAll }
+      }
+    } = this.props;
+
+    getAll();
+  }
+
   render() {
     const {
-      store: { auth, example }
+      store: {
+        expense: { getExpenses }
+      }
     } = this.props;
+
     return (
       <div>
-        <AddExpenseContainer/>
+        <ExpenseContainer expenseList={getExpenses} />
       </div>
     );
   }

@@ -4,11 +4,11 @@ import { BorrowedWrapper, BorrowedFilters, Card } from "src/components/index";
 const emptyItem = {
   id: "",
   name: "",
-  participant: "",
+  otherParticipant: "",
   amount: "",
   type: "",
   status: "",
-  creationTime: new Date()
+  date: new Date()
 };
 
 const BorrowedContainer = ({ borrowedList }) => {
@@ -33,7 +33,7 @@ const BorrowedContainer = ({ borrowedList }) => {
   const list = useMemo(() => {
     return borrowedList
       .filter(item => (statusFilter ? item.status === statusFilter : true))
-      .filter(item => (typeFilter ? item.type === typeFilter : true))
+      .filter(item => (typeFilter ? item.category === typeFilter : true))
       .map(item => <Card borrowedItem={item} key={item.id} />);
   });
 
@@ -46,7 +46,7 @@ const BorrowedContainer = ({ borrowedList }) => {
         handleStatusFilterChanges={handleStatusFilterChanges}
       />
       {list}
-      <Card borrowedItem={emptyItem} empty={borrowedList.length % 2 === 1} />
+      {/* <Card borrowedItem={emptyItem} empty={borrowedList.length % 2 === 1} /> */}
     </BorrowedWrapper>
   );
 };

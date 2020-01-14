@@ -68,7 +68,6 @@ const routes = [
 ];
 
 const SidebarContent = ({ pathname }) => {
-  console.log(pathname);
   return (
     <SiderbarContentContainer>
       <SidebarDivider />
@@ -194,7 +193,6 @@ export default class SidebarTest extends React.Component {
     } = this.props;
     const sidebar = <SidebarContent pathname={pathname} />;
     const { docked } = this.state;
-    console.log(this.props);
 
     const sidebarProps = {
       sidebar,

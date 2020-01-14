@@ -30,9 +30,22 @@ import AddExpenseContainer from "src/modules/expense/AddExpenseContainer";
 export default class App extends Component {
   state = {};
 
+  componentDidMount() {
+    const {
+      store: {
+        auth: { refresh }
+      }
+    } = this.props;
+
+    refresh();
+  }
+
   render() {
     const {
-      store: { auth }
+      store: {
+        auth,
+        expense: { addExpense }
+      }
     } = this.props;
 
     const { isOpen } = this.state;
@@ -55,40 +68,31 @@ export default class App extends Component {
               exact
               component={Login}
             />
-            {/* <RoutePublic
-              isAuthenticated={auth.isLoggedIn}
-              path="/sds"
-              to="/"
-              exact
-              component={Analyti}
-            /> */}
             <RoutePrivate
               isAuthenticated={auth.isLoggedIn}
               path="/expenses"
               to="/login"
               exact
-              component={withSidebar(NotFound)}
+              component={withSidebar(Expense)}
             />
-
             <RoutePrivate
               isAuthenticated={auth.isLoggedIn}
               path="/analytics"
-              to="/"
+              to="/login"
               exact
               component={withSidebar(Analytic)}
             />
-
             <RoutePublic
               isAuthenticated={auth.isLoggedIn}
               path="/register"
-              to="/"
+              to="/login"
               exact
               component={Register}
             />
             <RoutePrivate
               isAuthenticated={auth.isLoggedIn}
               path="/borrowed"
-              to="/"
+              to="/login"
               exact
               component={withSidebar(Borrowed)}
             />
@@ -96,7 +100,11 @@ export default class App extends Component {
           </Switch>
         </AppWrapper>
         <Modal isOpen={isOpen} close={() => this.setState({ isOpen: false })}>
-          <AddExpenseContainer />
+          <AddExpenseContainer
+            close={() => this.setState({ isOpen: false })}
+            onSubmitForm={() => this.setState({ isOpen: false })}
+            addExpense={addExpense}
+          />
         </Modal>
         {auth.isLoggedIn && (
           <FloatingActionButton

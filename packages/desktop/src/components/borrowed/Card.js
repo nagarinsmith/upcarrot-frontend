@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { TYPES, STATUS } from "src/modules/borrowed/borrowedList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as moment from "moment";
 import {
   faArrowUp,
   faCalendarAlt,
@@ -25,8 +26,8 @@ const CardContainer = styled.div`
 `;
 
 const Flag = styled.div`
-  background-color: ${({ type }) =>
-    type === TYPES.owed ? "#44f804" : "#f8a814"};
+  background-color: ${({ category }) =>
+    category === TYPES.owed ? "#44f804" : "#f8a814"};
   width: 100px;
   height: 100px;
   position: absolute;
@@ -60,9 +61,13 @@ const Flag = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  ${({ type, status }) =>
+  ${({ category, status }) =>
     `transform: rotate(${
-      status === STATUS.open ? (type === TYPES.owed ? "45deg" : "225deg") : "0"
+      status === STATUS.open
+        ? category === TYPES.owed
+          ? "45deg"
+          : "225deg"
+        : "0"
     })`};
 `;
 
@@ -104,53 +109,39 @@ const Label = styled.label`
   letter-spacing: 2px;
 `;
 
+const statusIcon = {
+  [STATUS.open]: faArrowUp,
+  [STATUS.pending]: faHourglassHalf,
+  [STATUS.closed]: faCheckCircle
+};
+
 export const Card = ({ borrowedItem, empty }) => {
-  const { participant, amount, type, status, creationTime } = borrowedItem;
-
-  const getStatusIcon = () => {
-    if (status === STATUS.open) {
-      return faArrowUp;
-    } else if (status === STATUS.pending) {
-      return faHourglassHalf;
-    } else {
-      return faCheckCircle;
-    }
-  };
-
-  const getDate = () => {
-    return (
-      creationTime.getDate() +
-      "." +
-      (creationTime.getMonth() + 1) +
-      "." +
-      creationTime.getFullYear()
-    );
-  };
+  const { otherParticipant, total, category, status, date } = borrowedItem;
 
   return (
     <CardContainer empty={empty}>
-      <Flag type={type} position />
+      <Flag category={category} position />
       <DateContent>
         <LabelImage>
           <FontAwesomeIcon icon={faCalendarAlt} />
         </LabelImage>
-        {getDate()}
+        {moment(date).format("DD.MM.YYYY")}
       </DateContent>
-      <Content>{participant}</Content>
+      <Content>{otherParticipant}</Content>
       <WhereContent>
-        <Label>{type === TYPES.owed ? "TO:" : "FROM:"}</Label>
+        <Label>{category === TYPES.owed ? "TO:" : "FROM:"}</Label>
       </WhereContent>
       <AmountContent>
-        {amount}
+        {total}
         <LabelImage>
           <FontAwesomeIcon icon={faDollarSign} />
         </LabelImage>
       </AmountContent>
-      <Flag type={type}>
-        <ImageContainer type={type} status={status}>
-          <FontAwesomeIcon icon={getStatusIcon()} size="3x" />
+      <Flag category={category}>
+        <ImageContainer category={category} status={status}>
+          <FontAwesomeIcon icon={statusIcon[status]} size="3x" />
         </ImageContainer>
-        <Label>{type === TYPES.owed ? "LEND" : "BORROW"}</Label>
+        <Label>{category === TYPES.owed ? "LEND" : "BORROW"}</Label>
       </Flag>
     </CardContainer>
   );
