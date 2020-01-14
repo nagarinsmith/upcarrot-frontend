@@ -13,7 +13,7 @@ import * as yup from "yup";
 import ExpenseInput from "src/components/expenses/ExpenseInput";
 import { HeroContainer } from "src/components/index";
 import styled from "styled-components";
-import moment from "../../../../../../../../Library/Caches/typescript/3.7/node_modules/moment/moment";
+import * as moment from "moment";
 
 const AddExpenseSchema = yup.object().shape({
   total: yup.number().required("Total is required"),
