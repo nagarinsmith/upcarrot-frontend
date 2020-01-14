@@ -78,7 +78,7 @@ const createOption = (label: string) => ({
 
 const AddEventContainer = ({
   onSubmitForm = data => {
-    console.log("testam", data);
+    // console.log("testam", data);
   },
   isLoading,
   close

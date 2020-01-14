@@ -118,7 +118,7 @@ const CloseButton = styled.div`
   }
 `;
 
-const typeIcon = {
+export const typeIcon = {
   [TYPES.food]: faHamburger,
   [TYPES.shopping]: faShoppingCart,
   [TYPES.bills]: faFileInvoice,

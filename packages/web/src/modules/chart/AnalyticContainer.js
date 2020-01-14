@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { VictoryPie, VictoryLabel } from "victory";
+import { observer } from "mobx-react";
 
 import { HeroContainer, LoginWrapper, Title } from "src/components/index";
 import { PieChart } from "src/components/charts/PieChart";
@@ -33,21 +34,22 @@ const PieContainer = styled.div`
   height: 100%;
 `;
 
-export default class AnaylticContainer extends Component {
-  render() {
-    return (
-      <Container>
-        <ChartContainer pie>
-          <PieContainer>
-            <PieChart />
-          </PieContainer>
-          <AreaChart />
-        </ChartContainer>
-        <ChartContainer>
-          <BarChart />
-          <VoronoiChart />
-        </ChartContainer>
-      </Container>
-    );
-  }
-}
+const AnaylticContainer = observer(({ expenses }) => {
+  // console.log("aici", expenses);
+  return (
+    <Container>
+      <ChartContainer pie>
+        <PieContainer>
+          <PieChart expenses={expenses} />
+        </PieContainer>
+        <AreaChart expenses={expenses} />
+      </ChartContainer>
+      <ChartContainer>
+        <BarChart />
+        <VoronoiChart />
+      </ChartContainer>
+    </Container>
+  );
+});
+
+export default AnaylticContainer;

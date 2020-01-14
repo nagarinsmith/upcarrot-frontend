@@ -13,6 +13,7 @@ export const VoronoiChart = ({ children }) => (
   <VictoryChart
     height={400}
     width={400}
+    animate={{ duration: 1000 }}
     containerComponent={<VictoryVoronoiContainer />}
   >
     <VictoryLegend
@@ -47,7 +48,7 @@ export const VoronoiChart = ({ children }) => (
       <VictoryScatter size={({ active }) => (active ? 8 : 3)} />
     </VictoryGroup>
     <VictoryGroup
-      color= "#44f804"
+      color="#44f804"
       labels={({ datum }) => `expenses: ${datum.y}`}
       labelComponent={<VictoryTooltip style={{ fontSize: 10 }} />}
       data={[
@@ -63,7 +64,7 @@ export const VoronoiChart = ({ children }) => (
       <VictoryLine />
       <VictoryScatter size={({ active }) => (active ? 8 : 3)} />
     </VictoryGroup>
-    <VictoryGroup
+    {/* <VictoryGroup
       color="#FFA33F"
       labels={({ datum }) => `expenses: ${datum.y}`}
       labelComponent={<VictoryTooltip style={{ fontSize: 10 }} />}
@@ -79,6 +80,6 @@ export const VoronoiChart = ({ children }) => (
     >
       <VictoryLine />
       <VictoryScatter size={({ active }) => (active ? 8 : 3)} />
-    </VictoryGroup>
+    </VictoryGroup> */}
   </VictoryChart>
 );

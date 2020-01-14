@@ -90,7 +90,7 @@ export default class App extends Component {
               exact
               component={Register}
             />
-            <RoutePublic
+            <RoutePrivate
               isAuthenticated={auth.isLoggedIn}
               path="/borrowed"
               to="/login"
