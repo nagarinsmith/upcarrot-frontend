@@ -16,7 +16,7 @@ const emptyItem = {
   date: new Date()
 };
 
-const ExpenseContainer = ({ expenseList }) => {
+const ExpenseContainer = ({ expenseList, deleteExpense }) => {
   const [typeFilter, setTypeFilter] = useState(null);
 
   const handleTypeFilterChanges = value => {
@@ -30,7 +30,13 @@ const ExpenseContainer = ({ expenseList }) => {
   const list = useMemo(() => {
     return expenseList
       .filter(item => (typeFilter ? item.category === typeFilter : true))
-      .map(item => <ExpenseCard expenseItem={item} key={item.id} />);
+      .map(item => (
+        <ExpenseCard
+          expenseItem={item}
+          key={item.id}
+          deleteExpense={deleteExpense}
+        />
+      ));
   });
 
   return (

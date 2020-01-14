@@ -10,7 +10,8 @@ import {
   faHome,
   faBoxOpen,
   faCalendarAlt,
-  faDollarSign
+  faDollarSign,
+  faTimes
 } from "@fortawesome/free-solid-svg-icons";
 
 const CardContainer = styled.div`
@@ -100,6 +101,23 @@ const Label = styled.label`
   }
 `;
 
+const CloseButton = styled.div`
+  background-color: #ff4a4a;
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ff6666;
+  }
+`;
+
 const typeIcon = {
   [TYPES.food]: faHamburger,
   [TYPES.shopping]: faShoppingCart,
@@ -116,8 +134,8 @@ const categoryColors = {
   OTHERS: "#BFF287"
 };
 
-export const Card = ({ expenseItem, empty }) => {
-  const { description, total, category, date } = expenseItem;
+export const Card = ({ expenseItem, empty, deleteExpense }) => {
+  const { id, description, total, category, date } = expenseItem;
   return (
     <CardContainer empty={empty}>
       <Flag category={category} position>
@@ -127,6 +145,9 @@ export const Card = ({ expenseItem, empty }) => {
         <LabelImage>
           <FontAwesomeIcon icon={faCalendarAlt} />
         </LabelImage>
+        <CloseButton onClick={() => deleteExpense(id)}>
+          <FontAwesomeIcon icon={faTimes} />
+        </CloseButton>
         {moment(date).format("DD.MM.YYYY")}
       </DateContent>
       <Content>{description}</Content>
