@@ -40,7 +40,7 @@ const ExpenseContainer = ({ expenseList }) => {
         handleTypeFilterChanges={handleTypeFilterChanges}
       />
       {list}
-      <Card expenseItem={emptyItem} empty={expenseList.length % 2 === 1} />
+      {expenseList.length % 2 === 1 && <Card expenseItem={emptyItem} empty />}
     </ExpenseListWrapper>
   );
 };
