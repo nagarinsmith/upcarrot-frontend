@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TYPES, STATUS } from "src/modules/borrowed/borrowedList";
+import { TYPES, STATUS } from "src/modules/borrowed/expenseConstants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as moment from "moment";
 import {

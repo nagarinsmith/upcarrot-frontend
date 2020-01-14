@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
 import styled from "styled-components";
-import { TYPES, STATUS } from "src/modules/borrowed/borrowedList";
+import { TYPES, STATUS } from "src/modules/borrowed/expenseConstants";
 
 const Filters = styled.div`
   display: flex;
@@ -52,7 +52,7 @@ export const BorrowedFilters = ({
             positive={statusFilter === STATUS.open}
             onClick={() => handleStatusFilterChanges(STATUS.open)}
           >
-            open
+            OPEN
           </Button>
           <Button.Or />
           <Button

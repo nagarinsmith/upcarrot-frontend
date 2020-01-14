@@ -4,6 +4,7 @@ import {
   ExpenseFilters,
   ExpenseCard
 } from "src/components/index";
+import { Card } from "src/components/expenses/Card";
 
 const emptyItem = {
   id: "",
@@ -17,7 +18,6 @@ const emptyItem = {
 
 const ExpenseContainer = ({ expenseList }) => {
   const [typeFilter, setTypeFilter] = useState(null);
-  const [statusFilter, setStatusFilter] = useState(null);
 
   const handleTypeFilterChanges = value => {
     if (value === typeFilter) {
@@ -26,17 +26,9 @@ const ExpenseContainer = ({ expenseList }) => {
       setTypeFilter(value);
     }
   };
-  const handleStatusFilterChanges = value => {
-    if (value === statusFilter) {
-      setStatusFilter(null);
-    } else {
-      setStatusFilter(value);
-    }
-  };
 
   const list = useMemo(() => {
     return expenseList
-      .filter(item => (statusFilter ? item.status === statusFilter : true))
       .filter(item => (typeFilter ? item.category === typeFilter : true))
       .map(item => <ExpenseCard expenseItem={item} key={item.id} />);
   });
@@ -44,13 +36,11 @@ const ExpenseContainer = ({ expenseList }) => {
   return (
     <ExpenseListWrapper>
       <ExpenseFilters
-        typeFilter={typeFilter}
-        statusFilter={statusFilter}
+        expenseType={typeFilter}
         handleTypeFilterChanges={handleTypeFilterChanges}
-        handleStatusFilterChanges={handleStatusFilterChanges}
       />
       {list}
-      {/* <Card expenseItem={emptyItem} empty={expenseList.length % 2 === 1} /> */}
+      <Card expenseItem={emptyItem} empty={expenseList.length % 2 === 1} />
     </ExpenseListWrapper>
   );
 };

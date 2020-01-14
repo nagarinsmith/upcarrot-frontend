@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { ExpenseWrapper } from "src/components/expenses/ExpenseWrapper";
 import { ExpenseForm } from "src/components/expenses/ExpenseForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import { Button, Header, Image, Modal } from "semantic-ui-react";
+import { Button, Modal } from "semantic-ui-react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import * as yup from "yup";
 import ExpenseInput from "src/components/expenses/ExpenseInput";
-import { HeroContainer } from "src/components/index";
 import styled from "styled-components";
 import * as moment from "moment";
 

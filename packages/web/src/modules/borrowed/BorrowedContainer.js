@@ -46,7 +46,7 @@ const BorrowedContainer = ({ borrowedList }) => {
         handleStatusFilterChanges={handleStatusFilterChanges}
       />
       {list}
-      {/* <Card borrowedItem={emptyItem} empty={borrowedList.length % 2 === 1} /> */}
+      <Card borrowedItem={emptyItem} empty={borrowedList.length % 2 === 1} />
     </BorrowedWrapper>
   );
 };
