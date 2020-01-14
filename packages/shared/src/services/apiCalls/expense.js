@@ -2,11 +2,13 @@
 export default function getAuthApiCalls(api) {
   return {
     getAll: ({ email, password }) => api.get("/expenses"),
-    addExpense: expense => api.post("/expenses", expense)
+    addExpense: expense => api.post("/expenses", expense),
+    deleteExpense: ({ id }) => api.delete(`/expenses/${id}`)
   };
 }
 // here we export each name for each api call - maybe we will generate those
 export const callNames = {
   GET_ALL: "getAll",
-  ADD_EXPENSE: "addExpense"
+  ADD_EXPENSE: "addExpense",
+  DELETE_EXPENSE: "deleteExpense"
 };

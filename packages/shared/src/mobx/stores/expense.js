@@ -46,7 +46,17 @@ const expenseStore = types
       yield self.fetch(
         expenseCalls.ADD_EXPENSE,
         expense,
-        self.onAddExpenseSuccess,
+        self.onSuccess,
+        self.onError
+      );
+    }),
+    deleteExpense: flow(function* deleteExpense(id) {
+      self.setLoading(true);
+      const expenseCalls = getEnv(self).callNames.expenseCallNames;
+      yield self.fetch(
+        expenseCalls.DELETE_EXPENSE,
+        { id },
+        self.onSuccess,
         self.onError
       );
     }),
@@ -55,12 +65,11 @@ const expenseStore = types
       self.setField("expenses", response);
       self.setLoading(false);
     },
-
     onError: error => {
       console.log("AUTH ERROR", error);
       self.setField("error", error.originalError);
     },
-    onAddExpenseSuccess: response => {
+    onSuccess: response => {
       self.getAll();
     }
   }));

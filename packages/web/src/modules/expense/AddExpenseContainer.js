@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { ExpenseWrapper } from "src/components/expenses/ExpenseWrapper";
 import { ExpenseForm } from "src/components/expenses/ExpenseForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import { Button, Header, Image, Modal } from "semantic-ui-react";
+import { Button, Modal } from "semantic-ui-react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import * as yup from "yup";
 import ExpenseInput from "src/components/expenses/ExpenseInput";
-import { HeroContainer } from "src/components/index";
 import styled from "styled-components";
-import moment from "moment";
+import * as moment from "moment";
 
 const AddExpenseSchema = yup.object().shape({
   total: yup.number().required("Total is required"),
@@ -74,7 +72,6 @@ export const Error = styled.div`
   color: red;
 `;
 
-
 const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
   const { handleSubmit, setValue, watch, register, errors } = useForm({
     validationSchema: AddExpenseSchema
@@ -93,7 +90,6 @@ const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
     close();
     addExpense({ ...rest, date: moment(date).toISOString() });
   };
-
 
   return (
     <>
@@ -143,7 +139,6 @@ const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
           </RowContainer>
         </ExpenseForm>
         {Object.keys(errors).length > 0 && <Error>Invalid Data</Error>}
-
       </Modal.Content>
       <Modal.Actions style={{ ...modalStyles.text, ...modalStyles.body }}>
         <Button className="cancelNumber" onClick={close}>

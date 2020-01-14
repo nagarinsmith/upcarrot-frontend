@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import BorrowedContainer from "src/modules/borrowed/BorrowedContainer";
-import { borrowedList } from "src/modules/borrowed/borrowedList";
+import { borrowedList } from "src/modules/borrowed/expenseConstants";
 import { observer, inject } from "mobx-react";
 
 @inject("store")

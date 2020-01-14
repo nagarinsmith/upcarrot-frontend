@@ -18,13 +18,16 @@ export default class Expense extends Component {
   render() {
     const {
       store: {
-        expense: { getExpenses }
+        expense: { getExpenses, deleteExpense }
       }
     } = this.props;
 
     return (
       <div>
-        <ExpenseContainer expenseList={getExpenses} />
+        <ExpenseContainer
+          expenseList={getExpenses}
+          deleteExpense={deleteExpense}
+        />
       </div>
     );
   }
