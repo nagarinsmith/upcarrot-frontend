@@ -15,14 +15,16 @@ import api from "shared/src/services/api";
 
 const GlobalStyle = createGlobalStyle`${reset}`;
 const storage = getCookie();
-const apiService = api.create(storage);
 const routingStore = new RouterStore();
+const history = syncHistoryWithStore(browserHistory, routingStore);
+
+const apiService = api.create(storage, () => {
+  browserHistory.push("/login");
+});
 const stores = {
   store: store.create({}, { apiService, callNames: api.callNames, storage }),
   routing: routingStore
 };
-
-const history = syncHistoryWithStore(browserHistory, routingStore);
 
 ReactDOM.render(
   <Provider {...stores}>

@@ -3,7 +3,7 @@ import apiCalls, { apiCallNames } from "./apiCalls";
 
 // our "constructor"
 // http://localhost:8080/ is the address of the spring server
-const create = (storage, baseURL = "http://localhost:8000/") => {
+const create = (storage, redirect, baseURL = "http://localhost:8000/") => {
   const api = apisauce.create({
     // base URL is read from the "constructor"
     baseURL,
@@ -13,16 +13,20 @@ const create = (storage, baseURL = "http://localhost:8000/") => {
     timeout: 10240
   });
 
-  api.addResponseTransform(response => {
+  api.addAsyncResponseTransform(async response => {
+    console.log(response);
     if (response.status === 401) {
-      // browserHistory.push("/login");
+      await storage.remove("access_token");
+      redirect && redirect();
     }
   });
 
   api.addAsyncRequestTransform(async request => {
+    console.log(request);
     const token = await storage.get("access_token");
+
     if (token) {
-      request.headers.Authentication = `Bearer ${token}`;
+      request.headers.Authorization = `Bearer ${token}`;
     }
   });
 

@@ -17,3 +17,6 @@ export { default as Modal } from "./layout/Modal";
 export { BorrowedWrapper } from "./borrowed/BorrowedWrapper";
 export { BorrowedFilters } from "./borrowed/BorrowedFilters";
 export { Card } from "./borrowed/Card";
+export { ExpenseListWrapper } from "./expenses/ExpenseListWrapper";
+export { ExpenseFilters } from "./expenses/ExpenseFilters";
+export { Card as ExpenseCard } from "./expenses/Card";

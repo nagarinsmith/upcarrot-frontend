@@ -56,6 +56,10 @@ const authStore = types
       self.setField("token", "");
       yield self.removeFromStorage("access_token");
       self.setLoading(false);
+    }),
+    refresh: flow(function*() {
+      self.token = yield self.getFromStorage("access_token");
+      if (self.token) self.setLoading(false);
     })
   }));
 

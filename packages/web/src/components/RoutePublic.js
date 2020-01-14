@@ -7,14 +7,26 @@ const RoutePublic = ({
   isAuthenticated,
   to,
   ...rest
-}) => (
-  <Route
-    {...rest}
-    render={props =>
-      isAuthenticated ? <Redirect to={to} /> : <Component {...props} />
+}) => {
+  const {
+    location: {
+      query: { redirect }
     }
-  />
-);
+  } = rest;
+
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        isAuthenticated ? (
+          <Redirect to={redirect || to} />
+        ) : (
+          <Component {...props} />
+        )
+      }
+    />
+  );
+};
 
 RoutePublic.propTypes = {
   component: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
