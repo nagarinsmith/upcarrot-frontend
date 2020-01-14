@@ -28,16 +28,24 @@
     "react-app-rewire-styled-components": "^3.0.2",
     "react-app-rewired": "^2.0.2",
     "react-countdown-now": "^2.1.2",
+    "react-datepicker": "^2.10.1",
     "react-dom": "^16.7.0",
     "react-floating-action-button": "^1.0.5",
+    "react-hook-form": "^4.4.4",
     "react-loadable": "^5.5.0",
     "react-router": "^5.0.0",
     "react-router-dom": "^4.3.1",
+    "react-sidebar": "^3.0.2",
+    "react-select": "^3.0.8",
     "react-test-renderer": "^16.7.0",
+    "react-tiny-fab": "^3.2.0",
     "reactstrap": "^6.5.0",
     "semantic-ui-react": "^0.88.1",
     "styled-components": "^4.0.0",
-    "universal-cookie": "^4.0.2"
+    "universal-cookie": "^4.0.2",
+    "victory": "^34.0.0",
+    "victory-native": "^34.0.0",
+    "yup": "^0.28.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.5.2",
@@ -107,5 +115,6 @@
       "prettier --write",
       "git add"
     ]
-  }
+  },
+  "@shared": "../components"
 }

@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
 import { observer, inject } from "mobx-react";
-import DashboardContainer from "src/modules/dashboard/DashboardContainer";
+import AnalyticContainer from "src/modules/chart/AnalyticContainer";
 
 @inject("store")
 @observer
-export default class Dashboard extends Component {
+export default class Analytic extends Component {
   state = {};
   render() {
     const {
@@ -14,7 +13,7 @@ export default class Dashboard extends Component {
     } = this.props;
     return (
       <div>
-        <DashboardContainer auth={auth} />;
+        <AnalyticContainer />
       </div>
     );
   }

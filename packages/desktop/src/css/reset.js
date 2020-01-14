@@ -12,6 +12,7 @@ const reset = css`
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     -webkit-tap-highlight-color: transparent;
     box-sizing: inherit;
+    font-family: "Roboto Mono", monospace;
   }
 
   *:before,
@@ -119,12 +120,90 @@ const reset = css`
     text-shadow: 0 0 0 #000;
   }
 
-  // body {
+  /* // body {
+  /     background: linear-gradient(rgba(0, 0, 0, 1), rgb(142, 14, 0));
+  //     background-repeat: no-repeat;
+  //     background-attachment: fixed;
+  // }//     box-sizing: border-box;
+  / */
+  .ui.button.cancelNumber {
+    background-color: #f8a814;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 0;
+  }
+  .ui.icon.positive.right.labeled.button.saveButton {
+    background-color: #44f804;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 0;
+  }
+  input {
+    background: transparent;
+    height: 30px;
+    font-size: 14px;
+    color: white;
+    font-family: "Roboto Mono", monospace;
+    border-bottom: 1px solid hsla(229, 6%, 43%, 1);
+  }
+
+  .react-datepicker__input-container {
+    background: transparent;
+    height: 30px;
+    font-size: 14px;
+    font-family: "Roboto Mono", monospace;
+  }
+
+  .react-datepicker__header {
+    background: rgb(28, 28, 48) !important;
+    color: white !important;
+  }
+  .react-datepicker__month-container {
+    background: rgb(28, 28, 48) !important;
+    color: white !important;
+    border: 0 transparent !important;
+    border-radius: 0 !important;
+
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  }
+
+  .react-datepicker {
+    border: 0 transparent !important;
+  }
+
+  .react-datepicker__day,
+  .react-datepicker__current-month,
+  .react-datepicker__day-name {
+    color: white !important;
+  }
+
+  .react-datepicker__day:hover {
+    background: #44f804 !important;
+  }
+  .react-datepicker__day--today:hover {
+    background: #44f804 !important;
+  }
+  .ui.button {
+    color: lightgray;
+    background-color: rgb(21, 21, 35);
+    font-family: "Roboto", sans-serif;
+  }
+
+  .or {
+    z-index: 1 !important;
+  }
+
+  .or::before {
+    color: rgb(21, 21, 35) !important;
+    font-family: "Roboto", sans-serif !important;
+  }
+
+  /* // body {
   //     box-sizing: border-box;
   //     background: linear-gradient(rgba(0, 0, 0, 1), rgb(142, 14, 0));
   //     background-repeat: no-repeat;
   //     background-attachment: fixed;
-  // }
+  // } */
 `;
 
 export default reset;

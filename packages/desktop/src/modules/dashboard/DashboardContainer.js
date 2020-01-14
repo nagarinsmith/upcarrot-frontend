@@ -9,8 +9,7 @@ export default class DashboardContainer extends Component {
     } = this.props;
     return (
       <div>
-        Dashboard
-        <div onClick={logout}>Logout</div>
+        dashboard <div onClick={logout}>Logout</div>
       </div>
     );
   }

@@ -11,7 +11,7 @@ class Storage {
 }
 
 let instance = null;
-export default function getApi() {
+export default function getStorage() {
   if (!instance) {
     instance = new Storage();
   }
