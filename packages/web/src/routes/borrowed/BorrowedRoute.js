@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import BorrowedContainer from "src/modules/borrowed/BorrowedContainer";
-import { borrowedList } from "src/modules/borrowed/expenseConstants";
 import { observer, inject } from "mobx-react";
 
 @inject("store")
@@ -19,10 +18,12 @@ export default class BorrowedRoute extends Component {
   render() {
     const {
       store: {
-        expense: { getBorrowed }
+        expense: { getBorrowed, closeBorrow }
       }
     } = this.props;
 
-    return <BorrowedContainer borrowedList={getBorrowed} />;
+    return (
+      <BorrowedContainer borrowedList={getBorrowed} closeBorrow={closeBorrow} />
+    );
   }
 }

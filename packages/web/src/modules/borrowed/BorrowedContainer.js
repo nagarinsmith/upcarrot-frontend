@@ -10,7 +10,7 @@ const emptyItem = {
   date: new Date()
 };
 
-const BorrowedContainer = ({ borrowedList }) => {
+const BorrowedContainer = ({ borrowedList, closeBorrow }) => {
   const [typeFilter, setTypeFilter] = useState(null);
   const [statusFilter, setStatusFilter] = useState(null);
 
@@ -33,7 +33,9 @@ const BorrowedContainer = ({ borrowedList }) => {
     return borrowedList
       .filter(item => (statusFilter ? item.status === statusFilter : true))
       .filter(item => (typeFilter ? item.category === typeFilter : true))
-      .map(item => <Card borrowedItem={item} key={item.id} />);
+      .map(item => (
+        <Card borrowedItem={item} closeBorrow={closeBorrow} key={item.id} />
+      ));
   });
 
   return (
