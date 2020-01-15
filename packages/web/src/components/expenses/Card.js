@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TYPES, STATUS } from "src/modules/borrowed/expenseConstants";
+import { TYPES } from "src/modules/borrowed/expenseConstants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as moment from "moment";
 import {
@@ -104,8 +104,8 @@ const Label = styled.label`
 const CloseButton = styled.div`
   background-color: #ff4a4a;
   position: absolute;
-  top: -30px;
-  right: -30px;
+  top: -12px;
+  right: -12px;
   width: 25px;
   height: 25px;
   display: flex;
@@ -141,13 +141,13 @@ export const Card = ({ expenseItem, empty, deleteExpense }) => {
       <Flag category={category} position>
         <FontAwesomeIcon icon={typeIcon[category]} size="3x" />
       </Flag>
+      <CloseButton onClick={() => deleteExpense(id)}>
+        <FontAwesomeIcon icon={faTimes} />
+      </CloseButton>
       <DateContent>
         <LabelImage>
           <FontAwesomeIcon icon={faCalendarAlt} />
         </LabelImage>
-        <CloseButton onClick={() => deleteExpense(id)}>
-          <FontAwesomeIcon icon={faTimes} />
-        </CloseButton>
         {moment(date).format("DD.MM.YYYY")}
       </DateContent>
       <Content>{description}</Content>

@@ -149,6 +149,3 @@ export const Card = ({ expenseItem, empty }) => {
     </CardContainer>
   );
 };
-
-//'BILLS', 'RENT', 'FOOD', 'SHOPPING', 'OTHER',
-//
