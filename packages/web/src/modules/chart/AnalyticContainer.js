@@ -34,7 +34,7 @@ const PieContainer = styled.div`
   height: 100%;
 `;
 
-const AnaylticContainer = observer(({ expenses }) => {
+const AnaylticContainer = observer(({ expenses, borrows }) => {
   // console.log("aici", expenses);
   return (
     <Container>
@@ -45,8 +45,8 @@ const AnaylticContainer = observer(({ expenses }) => {
         <AreaChart expenses={expenses} />
       </ChartContainer>
       <ChartContainer>
-        <BarChart />
-        <VoronoiChart />
+        <BarChart borrows={borrows} />
+        <VoronoiChart borrows={borrows} />
       </ChartContainer>
     </Container>
   );

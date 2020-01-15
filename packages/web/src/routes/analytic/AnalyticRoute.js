@@ -20,13 +20,13 @@ export default class Analytic extends Component {
   render() {
     const {
       store: {
-        expense: { getExpenses }
+        expense: { getExpenses, getBorrowed }
       }
     } = this.props;
 
     return (
       <div>
-        <AnalyticContainer expenses={getExpenses} />
+        <AnalyticContainer expenses={getExpenses} borrows={getBorrowed} />
       </div>
     );
   }

@@ -68,7 +68,6 @@ export const AreaChart = ({ expenses }) => {
 
   const data = MONTHS.map(k => getData(k));
   const invData = transpose(data);
-  console.log(invData);
 
   return (
     <VictoryChart
