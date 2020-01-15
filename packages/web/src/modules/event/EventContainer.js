@@ -1,6 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { EventWrapper } from "src/components/events/EventWrapper";
 import { Card } from "src/components/events/Card";
+import { EventFilters } from "src/components/events/EventFilters";
 
 const list = [
   {
@@ -300,11 +301,31 @@ const list = [
 ];
 
 const EventContainer = ({ events }) => {
+  const [statusFilter, setStatusFilter] = useState(null);
+
   const eventList = useMemo(() => {
-    return list.map(item => <Card eventItem={item} />);
+    return list
+      .filter(item => (statusFilter ? item.status === statusFilter : true))
+      .map(item => <Card eventItem={item} />);
   });
 
-  return <EventWrapper>{eventList}</EventWrapper>;
+  const handleStatusFilterChanges = value => {
+    if (value === statusFilter) {
+      setStatusFilter(null);
+    } else {
+      setStatusFilter(value);
+    }
+  };
+
+  return (
+    <EventWrapper>
+      <EventFilters
+        status={statusFilter}
+        handleStatusFilterChanges={handleStatusFilterChanges}
+      />
+      {eventList}
+    </EventWrapper>
+  );
 };
 
 export default EventContainer;
