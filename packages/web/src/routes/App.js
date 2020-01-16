@@ -21,8 +21,8 @@ import { FloatingActionButton, Modal } from "src/components/index";
 import Expense from "./expenses/ExpenseRoute";
 import AddExpenseContainer from "src/modules/expense/AddExpenseContainer";
 import AddEventContainer from "src/modules/event/AddEventContainer";
-import AddBorrowed from "./borrowed/AddBorrowedRoute";
 import AddBorrowedContainer from "src/modules/borrowed/AddBorrowedContainer";
+import SpinnerLoader from "src/components/loader/SpinnerLoader";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
 
@@ -54,16 +54,19 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(routes.indexOf(this.props.location.pathname))
     const {
       store: {
         auth,
-        expense: { addExpense, addBorrow },
-        events: { addEvent }
+        expense: { 
+          addExpense,
+          addBorrow, 
+        },
+        events: {
+          addEvent,
+        }
       }
     } = this.props;
-
-    const { isOpenEvent, isOpenExpense, isOpenBorrow } = this.state;
+      const { isOpenEvent, isOpenExpense, isOpenBorrow } = this.state;
 
     return (
       <ThemeProvider theme={theme}>
@@ -173,10 +176,11 @@ export default class App extends Component {
             addExpense={() => this.setState({ isOpenExpense: true })}
             addEvent={() => this.setState({ isOpenEvent: true })}
             addBorrow={() => {
-              this.setState({ isOpenBorrow: true });
+              this.setState({ isOpenBorrow: true })
             }}
           />
         )}
+        <SpinnerLoader />
       </ThemeProvider>
     );
   }

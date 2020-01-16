@@ -14,7 +14,7 @@ export default class Dashboard extends Component {
     } = this.props;
     return (
       <div>
-        <DashboardContainer auth={auth} />;
+        <DashboardContainer auth={auth} />
       </div>
     );
   }

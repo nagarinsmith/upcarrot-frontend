@@ -7,7 +7,7 @@ import { getEnv } from "mobx-state-tree";
 const eventsStore = types
   .model("Events", {
     token: "",
-    isLoading: true,
+    isLoading: false,
     events: types.optional(types.array(Events), [])
   })
   .views(self => ({}))
@@ -53,6 +53,7 @@ const eventsStore = types
     onError: error => {
       console.log("AUTH ERROR", error);
       self.setField("error", error.originalError);
+      self.setLoading(false);
     },
     onSuccess: response => {
       self.getAll();

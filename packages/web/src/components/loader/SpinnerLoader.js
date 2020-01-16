@@ -1,19 +1,36 @@
-import React from "react";
-import Loader from 'react-loader-spinner';
+import React, { Component } from "react";
+import Loader from "react-loader-spinner";
+import styled from "styled-components";
+import { inject, observer } from "mobx-react";
 
+const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 99999;
+`;
 
-const SpinnerLoader = ({ }) => {
-  return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-      <Loader
-        type="BallTriangle"
-        color="#44f804"
-        height={150}
-        width={150}
-        timeout={3000} //3 secs
-      />
-    </div>
-  );
-};
-
-export default SpinnerLoader;
+@inject("routing", "store")
+@observer
+export default class SpinnerLoader extends Component {
+  render() {
+    const {
+      store: {
+        auth: { isLoading: isLoadingAuth},
+        expense: { isLoading: isLoadingExpense },
+        events: { isLoading: isLoadingEvents },
+      }
+    } = this.props;
+    console.log(isLoadingAuth, isLoadingEvents, isLoadingExpense)
+    return (isLoadingAuth || isLoadingEvents || isLoadingExpense) ? (
+      <SpinnerContainer>
+        <Loader type="BallTriangle" color="#44f804" height={200} width={200} />
+      </SpinnerContainer>
+    ) : null;
+  }
+}
