@@ -115,8 +115,8 @@ const statusIcon = {
   [STATUS.closed]: faCheckCircle
 };
 
-export const Card = ({ borrowedItem, empty }) => {
-  const { otherParticipant, total, category, status, date } = borrowedItem;
+export const Card = ({ borrowedItem, closeBorrow, empty }) => {
+  const { id, otherParticipant, total, category, status, date } = borrowedItem;
 
   return (
     <CardContainer empty={empty}>
@@ -137,7 +137,10 @@ export const Card = ({ borrowedItem, empty }) => {
           <FontAwesomeIcon icon={faDollarSign} />
         </LabelImage>
       </AmountContent>
-      <Flag category={category}>
+      <Flag
+        category={category}
+        onClick={status === STATUS.open && (() => closeBorrow(id))}
+      >
         <ImageContainer category={category} status={status}>
           <FontAwesomeIcon icon={statusIcon[status]} size="3x" />
         </ImageContainer>

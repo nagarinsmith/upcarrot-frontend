@@ -6,10 +6,8 @@ import { EventForm } from "src/components/events/EventForm";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Select from "react-select";
 import * as yup from "yup";
 import EventInput from "src/components/events/EventInput";
-import { HeroContainer } from "src/components/index";
 import styled from "styled-components";
 import CreatableSelect from "react-select/creatable";
 import { Modal, Button } from "semantic-ui-react";
@@ -72,7 +70,7 @@ const components = {
   DropdownIndicator: null
 };
 
-const createOption = (label: string) => ({
+const createOption = label => ({
   label,
   value: label
 });
@@ -93,14 +91,14 @@ const AddEventContainer = ({ isLoading, close, addEvent }) => {
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState([]);
 
-  const handleChange = (value: any, actionMeta: any) => {
+  const handleChange = (value, actionMeta) => {
     setValue(value);
     setValueForm("users", value.map(item => item.value));
   };
-  const handleInputChange = (inputValue: string) => {
+  const handleInputChange = inputValue => {
     setInputValue(inputValue);
   };
-  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLElement>) => {
+  const handleKeyDown = event => {
     if (!inputValue) return;
     switch (event.key) {
       case "Enter":

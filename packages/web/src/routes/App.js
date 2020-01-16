@@ -14,6 +14,7 @@ import { RoutePrivate, RoutePublic } from "../components";
 import Dashboard from "./dashboard/DashboardRoute";
 import Analytic from "./analytic/AnalyticRoute";
 import NotFound from "./common/NotFound";
+import Events from "./events/EventRoute";
 import { AppWrapper } from "@/components";
 import { withSidebar } from "src/components/layout/Sidebar";
 import { FloatingActionButton, Modal } from "src/components/index";
@@ -99,6 +100,13 @@ export default class App extends Component {
               to="/login"
               exact
               component={withSidebar(Borrowed)}
+            />
+            <RoutePrivate
+              isAuthenticated={auth.isLoggedIn}
+              path="/events"
+              to="/login"
+              exact
+              component={withSidebar(Events)}
             />
             <Route component={withSidebar(NotFound)} />
           </Switch>

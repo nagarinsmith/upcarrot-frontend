@@ -4,6 +4,7 @@ export default function getAuthApiCalls(api) {
     getAll: ({ email, password }) => api.get("/expenses"),
     addExpense: expense => api.post("/expenses", expense),
     deleteExpense: ({ id }) => api.delete(`/expenses/${id}`),
+    closeBorrow: ({ id }) => api.put(`/borrow/close`, { id }),
     addBorrow: borrow => api.post("/expenses", borrow) //@TODO: de schimbat
   };
 }
@@ -12,5 +13,6 @@ export const callNames = {
   GET_ALL: "getAll",
   ADD_EXPENSE: "addExpense",
   DELETE_EXPENSE: "deleteExpense",
+  CLOSE_BORROW: "closeBorrow",
   ADD_BORROW: "addBorrow"
 };
