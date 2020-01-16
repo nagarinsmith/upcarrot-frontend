@@ -75,7 +75,6 @@ const menuItems = [
 
 const Header = ({ isHome, ...props }) => {
   const [isScrolled, setScrolled] = useState(false);
-  console.log(props);
   useScrollPosition(
     ({ currPos }) => {
       if (currPos.y < -50) setScrolled(true);

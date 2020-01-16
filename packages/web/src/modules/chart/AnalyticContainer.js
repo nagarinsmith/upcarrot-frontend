@@ -35,7 +35,6 @@ const PieContainer = styled.div`
 `;
 
 const AnaylticContainer = observer(({ expenses, borrows }) => {
-  // console.log("aici", expenses);
   return (
     <Container>
       <ChartContainer pie>

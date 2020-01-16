@@ -21,8 +21,6 @@ export const BarChart = ({ borrows }) => {
       moment(item.date).isSameOrBefore(endDate)
   );
 
-  console.log(borrows);
-
   const aux = [
     ...Object.entries(TYPES)
       .filter(([, item]) => item === "OWED" || item === "BORROWED")
@@ -41,8 +39,6 @@ export const BarChart = ({ borrows }) => {
         };
       })
   ];
-
-  console.log(aux);
 
   return (
     <VictoryChart

@@ -13,6 +13,7 @@ import { HeroContainer } from "src/components/index";
 import styled from "styled-components";
 import CreatableSelect from "react-select/creatable";
 import { Modal, Button } from "semantic-ui-react";
+import moment from "moment";
 
 const AddEventSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -76,13 +77,7 @@ const createOption = (label: string) => ({
   value: label
 });
 
-const AddEventContainer = ({
-  onSubmitForm = data => {
-    // console.log("testam", data);
-  },
-  isLoading,
-  close
-}) => {
+const AddEventContainer = ({ isLoading, close, addEvent }) => {
   const {
     handleSubmit,
     register,
@@ -123,6 +118,11 @@ const AddEventContainer = ({
     register({ name: "date" }, { required: true });
     register({ name: "users" }, { required: true });
   }, [register]);
+
+  const onSubmitForm = ({ date, ...rest }) => {
+    close();
+    addEvent({ ...rest, date: moment(date).toISOString() });
+  };
 
   return (
     <>

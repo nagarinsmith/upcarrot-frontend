@@ -9,11 +9,13 @@ export default class BorrowedRoute extends Component {
   componentDidMount() {
     const {
       store: {
-        expense: { getAll }
+        expense: { getAll },
+        events: { getAll: getAllEvents }
       }
     } = this.props;
 
     getAll();
+    getAllEvents();
   }
 
   render() {

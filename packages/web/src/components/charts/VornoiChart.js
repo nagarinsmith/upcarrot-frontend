@@ -29,7 +29,6 @@ const categoryColors = {
 };
 
 export const VoronoiChart = ({ borrows }) => {
-  console.log(borrows);
   const getData = value => {
     const startDate = moment()
       .startOf("month")
@@ -72,8 +71,6 @@ export const VoronoiChart = ({ borrows }) => {
 
   const data = MONTHS.map(k => getData(k));
   const invData = transpose(data);
-
-  console.log(invData);
 
   return (
     <VictoryChart

@@ -20,6 +20,8 @@ import { FloatingActionButton, Modal } from "src/components/index";
 import Expense from "./expenses/ExpenseRoute";
 import AddExpenseContainer from "src/modules/expense/AddExpenseContainer";
 import AddEventContainer from "src/modules/event/AddEventContainer";
+import AddBorrowed from "./borrowed/AddBorrowedRoute";
+import AddBorrowedContainer from "src/modules/borrowed/AddBorrowedContainer";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
 
@@ -45,11 +47,12 @@ export default class App extends Component {
     const {
       store: {
         auth,
-        expense: { addExpense }
+        expense: { addExpense, addBorrow },
+        events: { addEvent }
       }
     } = this.props;
 
-    const { isOpenEvent, isOpenExpense } = this.state;
+    const { isOpenEvent, isOpenExpense, isOpenBorrow } = this.state;
 
     return (
       <ThemeProvider theme={theme}>
@@ -101,7 +104,7 @@ export default class App extends Component {
           </Switch>
         </AppWrapper>
         <Modal
-          isOpen={isOpenEvent || isOpenExpense}
+          isOpen={isOpenEvent || isOpenExpense || isOpenBorrow}
           title={
             isOpenEvent
               ? "Add new Event"
@@ -113,14 +116,36 @@ export default class App extends Component {
             this.setState({ isOpenEvent: false, isOpenExpense: false })
           }
         >
-          {isOpenEvent && <AddEventContainer />}
-          {isOpenExpense && (
-            <AddExpenseContainer
+          {isOpenEvent && (
+            <AddEventContainer
               close={() =>
                 this.setState({ isOpenEvent: false, isOpenExpense: false })
               }
-              onSubmitForm={() => this.setState({ isOpen: false })}
+              addEvent={addEvent}
+            />
+          )}
+          {isOpenExpense && (
+            <AddExpenseContainer
+              close={() =>
+                this.setState({
+                  isOpenEvent: false,
+                  isOpenExpense: false,
+                  isOpenBorrow: false
+                })
+              }
               addExpense={addExpense}
+            />
+          )}
+          {isOpenBorrow && (
+            <AddBorrowedContainer
+              close={() =>
+                this.setState({
+                  isOpenEvent: false,
+                  isOpenExpense: false,
+                  isOpenBorrow: false
+                })
+              }
+              addBorrow={addBorrow}
             />
           )}
         </Modal>
@@ -129,6 +154,9 @@ export default class App extends Component {
           <FloatingActionButton
             addExpense={() => this.setState({ isOpenExpense: true })}
             addEvent={() => this.setState({ isOpenEvent: true })}
+            addBorrow={() => {
+              this.setState({ isOpenBorrow: true });
+            }}
           />
         )}
       </ThemeProvider>
