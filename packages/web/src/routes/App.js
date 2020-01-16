@@ -25,6 +25,15 @@ import AddEventContainer from "src/modules/event/AddEventContainer";
 
 // try to use as much function components as possible but when using
 // decorators stick to class components
+
+const routes = [
+  "/expenses",
+  "/analytics",
+  "/events",
+  "/borrowed",
+  "/"
+]
+
 @inject("routing", "store")
 @withRouter
 @observer
@@ -42,6 +51,7 @@ export default class App extends Component {
   }
 
   render() {
+    console.log(routes.indexOf(this.props.location.pathname))
     const {
       store: {
         auth,
@@ -97,7 +107,7 @@ export default class App extends Component {
               exact
               component={withSidebar(Borrowed)}
             />
-            <Route component={withSidebar(NotFound)} />
+            <Route component={NotFound} />
           </Switch>
         </AppWrapper>
         <Modal
@@ -125,7 +135,7 @@ export default class App extends Component {
           )}
         </Modal>
 
-        {auth.isLoggedIn && (
+        {auth.isLoggedIn && routes.indexOf(this.props.location.pathname) !== -1 && (
           <FloatingActionButton
             addExpense={() => this.setState({ isOpenExpense: true })}
             addEvent={() => this.setState({ isOpenEvent: true })}

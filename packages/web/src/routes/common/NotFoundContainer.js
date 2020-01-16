@@ -11,5 +11,6 @@ export const NotFoundContainer = styled.div`
   flex: 1;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 `;
 

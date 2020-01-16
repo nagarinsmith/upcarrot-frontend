@@ -1,12 +1,9 @@
-import React, { Component, View} from "react";
+import React from "react";
 
 import styled from "styled-components";
 
 import { NotFoundContainer} from "src/routes/common/NotFoundContainer";
 import { NotFoundWrapper} from "src/routes/common/NotFoundWrapper";
-import { NotFoundForm} from "src/routes/common/NotFoundForm";
-
-import logo from "src/assets/images/lost.png";
 
 export const Title = styled.div`
 height: 100px;
@@ -15,6 +12,7 @@ display: flex;
 font-family: "Roboto Mono", monospace;
 font-weight: 700;
 padding: 20px;
+
 @media (max-width: 400px) {
   height: 60px;
   font-size: 30px;
@@ -36,9 +34,11 @@ export const TitleContainer = styled.div`
   display: flex;
   font-family: "Roboto Mono", monospace;
   font-weight: 700;
-  tetx-align: left;
- 
   ${props => props.styles}
+
+  @media (max-width: 600px) {
+    font-size: 100px;
+  }
 `;
 
 export const White = styled.div`
@@ -51,7 +51,7 @@ export const Message = styled.div`
   display: flex;
   font-family: "Roboto Mono", monospace;
   font-weight: 800;
-  padding: 50px;
+  padding: 50px 0;
   text-align: center;
 
 ${props => props.styles}
@@ -60,31 +60,20 @@ ${props => props.styles}
 
 const NotFound = ({ }) => {
   return (
-   
-          <NotFoundContainer>
+    <NotFoundContainer>
       <NotFoundWrapper>
-        <Title> <Orange> Up</Orange> 
-                <Green> Carrot</Green></Title>
-      <Message> Ooops! You're lost... </Message>
+        <Title> 
+          <Orange> Up</Orange> 
+          <Green> Carrot</Green>
+        </Title>
+        <Message> Ooops! You're lost... </Message>
         <TitleContainer>
-            <White>  404 </White>
+          <White>404</White>
         </TitleContainer>
-    <Message> No page here, just empty space!  </Message>
+        <Message> No page here, just empty space!  </Message>
       </NotFoundWrapper>
     </NotFoundContainer>
- 
- 
-
- 
   );
 };
 
 export default NotFound;
-
-/*
-export default class NotFound extends Component {
-  state = {};
-  render() {
-    return <div>404 Not found</div>;
-  }
-}*/
