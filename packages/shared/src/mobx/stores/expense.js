@@ -30,6 +30,17 @@ const expenseStore = types
       self.isLoading = value;
     },
     setField: (field, value) => (self[field] = value),
+    addBorrow: flow(function*(borrow) {
+      self.setLoading(true);
+      console.log(borrow);
+      const expenseCalls = getEnv(self).callNames.expenseCallNames;
+      yield self.fetch(
+        expenseCalls.ADD_BORROW,
+        { ...borrow, status: "PENDING" },
+        self.onSuccess,
+        self.onError
+      );
+    }),
     getAll: flow(function* getAll(email, password) {
       self.setLoading(true);
       const expenseCalls = getEnv(self).callNames.expenseCallNames;
@@ -60,8 +71,17 @@ const expenseStore = types
         self.onError
       );
     }),
+    closeBorrow: flow(function* closeBorrow(id) {
+      self.setLoading(true);
+      const expenseCalls = getEnv(self).callNames.expenseCallNames;
+      yield self.fetch(
+        expenseCalls.CLOSE_BORROW,
+        { id },
+        self.onSuccess,
+        self.onError
+      );
+    }),
     onGetAllSuccess: response => {
-      // console.log(response);
       self.setField("expenses", response);
       self.setLoading(false);
     },

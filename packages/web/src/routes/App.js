@@ -14,17 +14,29 @@ import { RoutePrivate, RoutePublic } from "../components";
 import Dashboard from "./dashboard/DashboardRoute";
 import Analytic from "./analytic/AnalyticRoute";
 import NotFound from "./common/NotFound";
+import Events from "./events/EventRoute";
 import { AppWrapper } from "@/components";
 import { withSidebar } from "src/components/layout/Sidebar";
 import { FloatingActionButton, Modal } from "src/components/index";
 import Expense from "./expenses/ExpenseRoute";
 import AddExpenseContainer from "src/modules/expense/AddExpenseContainer";
 import AddEventContainer from "src/modules/event/AddEventContainer";
+import AddBorrowed from "./borrowed/AddBorrowedRoute";
+import AddBorrowedContainer from "src/modules/borrowed/AddBorrowedContainer";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
 
 // try to use as much function components as possible but when using
 // decorators stick to class components
+
+const routes = [
+  "/expenses",
+  "/analytics",
+  "/events",
+  "/borrowed",
+  "/"
+]
+
 @inject("routing", "store")
 @withRouter
 @observer
@@ -42,14 +54,16 @@ export default class App extends Component {
   }
 
   render() {
+    console.log(routes.indexOf(this.props.location.pathname))
     const {
       store: {
         auth,
-        expense: { addExpense }
+        expense: { addExpense, addBorrow },
+        events: { addEvent }
       }
     } = this.props;
 
-    const { isOpenEvent, isOpenExpense } = this.state;
+    const { isOpenEvent, isOpenExpense, isOpenBorrow } = this.state;
 
     return (
       <ThemeProvider theme={theme}>
@@ -97,11 +111,18 @@ export default class App extends Component {
               exact
               component={withSidebar(Borrowed)}
             />
-            <Route component={withSidebar(NotFound)} />
+            <RoutePrivate
+              isAuthenticated={auth.isLoggedIn}
+              path="/events"
+              to="/login"
+              exact
+              component={withSidebar(Events)}
+            />
+            <Route component={NotFound} />
           </Switch>
         </AppWrapper>
         <Modal
-          isOpen={isOpenEvent || isOpenExpense}
+          isOpen={isOpenEvent || isOpenExpense || isOpenBorrow}
           title={
             isOpenEvent
               ? "Add new Event"
@@ -113,22 +134,47 @@ export default class App extends Component {
             this.setState({ isOpenEvent: false, isOpenExpense: false })
           }
         >
-          {isOpenEvent && <AddEventContainer />}
-          {isOpenExpense && (
-            <AddExpenseContainer
+          {isOpenEvent && (
+            <AddEventContainer
               close={() =>
                 this.setState({ isOpenEvent: false, isOpenExpense: false })
               }
-              onSubmitForm={() => this.setState({ isOpen: false })}
+              addEvent={addEvent}
+            />
+          )}
+          {isOpenExpense && (
+            <AddExpenseContainer
+              close={() =>
+                this.setState({
+                  isOpenEvent: false,
+                  isOpenExpense: false,
+                  isOpenBorrow: false
+                })
+              }
               addExpense={addExpense}
+            />
+          )}
+          {isOpenBorrow && (
+            <AddBorrowedContainer
+              close={() =>
+                this.setState({
+                  isOpenEvent: false,
+                  isOpenExpense: false,
+                  isOpenBorrow: false
+                })
+              }
+              addBorrow={addBorrow}
             />
           )}
         </Modal>
 
-        {auth.isLoggedIn && (
+        {auth.isLoggedIn && routes.indexOf(this.props.location.pathname) !== -1 && (
           <FloatingActionButton
             addExpense={() => this.setState({ isOpenExpense: true })}
             addEvent={() => this.setState({ isOpenEvent: true })}
+            addBorrow={() => {
+              this.setState({ isOpenBorrow: true });
+            }}
           />
         )}
       </ThemeProvider>

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ExpenseForm } from "src/components/expenses/ExpenseForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import { Button, Modal } from "semantic-ui-react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,10 +11,29 @@ import Select from "react-select";
 import * as yup from "yup";
 import ExpenseInput from "src/components/expenses/ExpenseInput";
 import styled from "styled-components";
+import * as moment from "moment";
 
-const AddBorrowedSchema = yup.object().shape({
-  total: yup.number().required("Total is required")
+const AddExpenseSchema = yup.object().shape({
+  total: yup.number().required("Total is required"),
+  otherParticipant: yup
+    .string()
+    .required("Other participant is required")
+    .email(),
+  category: yup.string().required(),
+  date: yup.date().required()
 });
+
+const modalStyles = {
+  text: {
+    color: "white"
+  },
+  body: {
+    background: "#151523"
+  },
+  borderBottom: {
+    borderBottom: "1px white solid"
+  }
+};
 
 const RowContainer = styled.div`
   width: 100%;
@@ -31,10 +51,9 @@ const DateContainer = styled.div`
   margin: 10px;
 `;
 
-const persons = [
-  { label: "John Doe", value: 1 },
-  { label: "Ella Hooman", value: 2 },
-  { label: "Ryder Sammy", value: 3 }
+const categories = [
+  { label: "OWED", value: "OWED" },
+  { label: "BORROWED", value: "BORROWED" }
 ];
 
 const colourStyles = {
@@ -49,43 +68,94 @@ const colourStyles = {
   }
 };
 
-const AddBorrowedContainer = ({ onSubmitForm, isLoading }) => {
-  const { handleSubmit } = useForm({
-    validationSchema: AddBorrowedSchema
+export const Error = styled.div`
+  color: red;
+`;
+
+const AddBorrowContainer = ({ close, open, isLoading, addBorrow }) => {
+  const { handleSubmit, setValue, watch, register, errors } = useForm({
+    validationSchema: AddExpenseSchema
   });
 
-  const [startDate, setStartDate] = useState(new Date());
+  const values = watch();
+
+  const [select, setSelect] = useState("");
+
+  useEffect(() => {
+    register({ name: "date" }, { required: true });
+    register({ name: "category" }, { required: true });
+  }, [register]);
+
+  const onSubmitForm = ({ date, ...rest }) => {
+    close();
+    addBorrow({ ...rest, date: moment(date).toISOString() });
+  };
 
   return (
-    <ExpenseForm onSubmit={handleSubmit(onSubmitForm)}>
-      <ExpenseInput
-        type="text"
-        label="Description"
-        name="description"
-        placeholder="You have money to give,huh?"
-        disabled={isLoading}
-      />
-      <ExpenseInput
-        type="number"
-        label="Total"
-        name="total"
-        placeholder="Not a lot hopefully"
-        disabled={isLoading}
-      />
-      <RowContainer>
-        <DateContainer>
-          <FontAwesomeIcon icon={faCalendarAlt} style={{ margin: 10 }} />
-          <DatePicker
-            selected={startDate}
-            onChange={date => setStartDate(date)}
+    <>
+      <Modal.Content
+        style={{
+          ...modalStyles.text,
+          ...modalStyles.body,
+          ...modalStyles.borderBottom
+        }}
+      >
+        <ExpenseForm onSubmit={handleSubmit(onSubmitForm)}>
+          <ExpenseInput
+            type="text"
+            label="To/From Whom"
+            name="otherParticipant"
+            placeholder="johnDoe@email.com"
+            ref={register({ required: true })}
+            disabled={isLoading}
           />
-        </DateContainer>
-        <div style={{ width: "230px", padding: "20px" }}>
-          <Select options={persons} styles={colourStyles} />
-        </div>
-      </RowContainer>
-    </ExpenseForm>
+          <ExpenseInput
+            type="number"
+            label="Total"
+            name="total"
+            placeholder="Not a lot hopefully"
+            ref={register({ required: true })}
+            disabled={isLoading}
+          />
+          <RowContainer>
+            <DateContainer>
+              <FontAwesomeIcon icon={faCalendarAlt} style={{ margin: 10 }} />
+              <DatePicker
+                selected={values.date}
+                onChange={value => setValue("date", value)}
+              />
+            </DateContainer>
+            <div style={{ width: "230px", padding: "20px" }}>
+              <Select
+                options={categories}
+                styles={colourStyles}
+                value={select || []}
+                onChange={value => {
+                  setSelect(value);
+                  setValue("category", value.value);
+                }}
+              />
+            </div>
+          </RowContainer>
+        </ExpenseForm>
+        {Object.keys(errors).length > 0 && <Error>Invalid Data</Error>}
+      </Modal.Content>
+      <Modal.Actions style={{ ...modalStyles.text, ...modalStyles.body }}>
+        <Button className="cancelNumber" onClick={close}>
+          Cancel
+        </Button>
+        <Button
+          positive
+          className="saveButton"
+          icon="checkmark"
+          labelPosition="right"
+          content="Save"
+          onClick={handleSubmit(onSubmitForm)}
+          type="submit"
+        />
+      </Modal.Actions>
+    </>
   );
 };
 
-export default AddBorrowedContainer;
+export default AddBorrowContainer;

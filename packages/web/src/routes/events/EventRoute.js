@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import AddEventContainer from "src/modules/event/AddEventContainer";
+import EventContainer from "src/modules/event/EventContainer";
 
 @inject("store")
 @observer
@@ -10,10 +10,6 @@ export default class Event extends Component {
     const {
       store: { auth, example }
     } = this.props;
-    return (
-      <div>
-        <AddEventContainer/>
-      </div>
-    );
+    return <EventContainer />;
   }
 }

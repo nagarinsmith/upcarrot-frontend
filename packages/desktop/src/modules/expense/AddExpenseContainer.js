@@ -89,8 +89,6 @@ const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
     addExpense({ ...rest, date: moment(date).toISOString() });
   };
 
-  console.log(values);
-
   return (
     <>
       <Modal.Content>

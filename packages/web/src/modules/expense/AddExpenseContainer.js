@@ -129,7 +129,7 @@ const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
               <Select
                 options={categories}
                 styles={colourStyles}
-                value={select}
+                value={select || []}
                 onChange={value => {
                   setSelect(value);
                   setValue("category", value.value);

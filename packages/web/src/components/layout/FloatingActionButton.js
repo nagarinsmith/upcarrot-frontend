@@ -16,7 +16,7 @@ const mainButtonStyles = {
 const actionButtonStyles = {
   backgroundColor: "#f8a814"
 };
-const FloatingActionButton = ({ addExpense, addEvent }) => (
+const FloatingActionButton = ({ addExpense, addEvent, addBorrow }) => (
   // The Fab is the main button. Pass any component to the icon prop and choose
   // either click or hover for the event (default is hover)
   <Fab
@@ -24,27 +24,13 @@ const FloatingActionButton = ({ addExpense, addEvent }) => (
     actionButtonStyles={actionButtonStyles}
     icon={<FontAwesomeIcon icon={faPlus} />}
   >
-    <Action
-      text="Add Expense"
-      style={actionButtonStyles}
-      onPress={addExpense}
-      onClick={addExpense}
-    >
+    <Action text="Add Expense" style={actionButtonStyles} onClick={addExpense}>
       <FontAwesomeIcon icon={faCreditCard} />
     </Action>
-    <Action 
-      text="Add Borrow" 
-      style={actionButtonStyles}
-
-    >
+    <Action text="Add Borrow" style={actionButtonStyles} onClick={addBorrow}>
       <FontAwesomeIcon icon={faHandHoldingUsd} />
     </Action>
-    <Action 
-      text="Add Event" 
-      style={actionButtonStyles}
-      onPress={addEvent}
-      onClick={addEvent}
-    >
+    <Action text="Add Event" style={actionButtonStyles} onClick={addEvent}>
       <FontAwesomeIcon icon={faCalendarAlt} />
     </Action>
   </Fab>
