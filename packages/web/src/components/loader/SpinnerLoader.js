@@ -26,7 +26,7 @@ export default class SpinnerLoader extends Component {
         events: { isLoading: isLoadingEvents },
       }
     } = this.props;
-    console.log(isLoadingAuth, isLoadingEvents, isLoadingExpense)
+
     return (isLoadingAuth || isLoadingEvents || isLoadingExpense) ? (
       <SpinnerContainer>
         <Loader type="BallTriangle" color="#44f804" height={200} width={200} />

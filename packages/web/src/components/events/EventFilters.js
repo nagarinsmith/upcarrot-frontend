@@ -26,7 +26,6 @@ const FilterItem = styled.div`
 `;
 
 export const EventFilters = ({ status, handleStatusFilterChanges }) => {
-  console.log(status);
   return (
     <Filters>
       <FilterItem>

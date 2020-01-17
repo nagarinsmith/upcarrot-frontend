@@ -46,6 +46,17 @@ const eventsStore = types
         self.onError
       );
     }),
+    splitExpenses: flow(function*(id) {
+      console.log('STORE')
+      self.setLoading(true);
+      const eventsCalls = getEnv(self).callNames.eventCallNames;
+      yield self.fetch(
+        eventsCalls.SPLIT_EXPENSES,
+        { id },
+        self.onSuccess,
+        self.onError
+      );
+    }),
     onGetAllSuccess: response => {
       self.setField("events", response);
       self.setLoading(false);

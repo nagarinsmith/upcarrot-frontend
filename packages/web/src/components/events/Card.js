@@ -76,12 +76,12 @@ const CloseButton = styled.div`
   }
 `;
 
-export const Card = ({ eventItem }) => {
+export const Card = ({ eventItem, splitExpenses }) => {
   const { name, listOfUsers, date, status } = eventItem;
 
   return (
     <CardContainer>
-      <CloseButton>
+      <CloseButton onClick={() => splitExpenses()}>
         <FontAwesomeIcon icon={faTimes} />
       </CloseButton>
       <DateContent>

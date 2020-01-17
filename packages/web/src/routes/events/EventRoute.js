@@ -8,8 +8,12 @@ export default class Event extends Component {
   state = {};
   render() {
     const {
-      store: { auth, example }
+      store: { 
+        auth, 
+        example,
+        events: { splitExpenses }
+      }
     } = this.props;
-    return <EventContainer />;
+    return <EventContainer splitExpenses={splitExpenses} />;
   }
 }

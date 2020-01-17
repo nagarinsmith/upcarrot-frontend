@@ -301,13 +301,13 @@ const list = [
   }
 ];
 
-const EventContainer = ({ events }) => {
+const EventContainer = ({ splitExpenses }) => {
   const [statusFilter, setStatusFilter] = useState(null);
 
   const eventList = useMemo(() => {
     return list
       .filter(item => (statusFilter ? item.status === statusFilter : true))
-      .map(item => <Card eventItem={item} />);
+      .map(item => <Card eventItem={item} splitExpenses={splitExpenses} />);
   });
 
   const handleStatusFilterChanges = value => {
