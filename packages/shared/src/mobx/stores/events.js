@@ -1,5 +1,5 @@
-import { types, flow, getSnapshot } from "mobx-state-tree";
-import { Expense, Events } from "../models";
+import { types, flow } from "mobx-state-tree";
+import { Events } from "../models";
 import baseStore from "./base";
 import { getEnv } from "mobx-state-tree";
 
@@ -47,7 +47,6 @@ const eventsStore = types
       );
     }),
     splitExpenses: flow(function*(id) {
-      console.log('STORE')
       self.setLoading(true);
       const eventsCalls = getEnv(self).callNames.eventCallNames;
       yield self.fetch(
