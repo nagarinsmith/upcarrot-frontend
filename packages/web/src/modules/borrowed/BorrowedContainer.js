@@ -31,10 +31,6 @@ const BorrowedContainer = ({ borrowedList, closeBorrow }) => {
   };
 
   const list = useMemo(() => {
-    if (!borrowedList.length) {
-      return <Empty />;
-    }
-
     return borrowedList
       .filter(item => (statusFilter ? item.status === statusFilter : true))
       .filter(item => (typeFilter ? item.category === typeFilter : true))
@@ -55,7 +51,8 @@ const BorrowedContainer = ({ borrowedList, closeBorrow }) => {
         /> : null
       }
       {list}
-      {borrowedList.length % 2 === 1 && <Card borrowedItem={emptyItem} empty />}
+      {list.length === 0 && <Empty />}
+      {(borrowedList.length % 2 === 1 && list.length > 0) && <Card borrowedItem={emptyItem} empty />}
     </BorrowedWrapper>
   );
 };

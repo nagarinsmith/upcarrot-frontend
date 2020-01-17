@@ -2,24 +2,21 @@ import React, { Component, View} from "react";
 import styled from "styled-components";
 
 export const EmptyContainer = styled.div`
-  background-size: cover;
-  background-position: center;
-  background-repeat:  no-repeat;
-  background-attachment: fixed;
+  height: 800px;
+  width: 100%;
   display: flex;
-  flex: 1;
   justify-content: center;
   align-items: center;
 `;
 
 export const EmptyWrapper = styled.div`
-   display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-width: 300px;
-  width: 80%;
-  /* background: white; */
-  padding: 250px;
+  width: 100%;
+  height: 100%;
 `;
 export const EmptyIcon = styled.div`
   display:flex;

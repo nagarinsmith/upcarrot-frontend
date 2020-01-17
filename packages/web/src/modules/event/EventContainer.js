@@ -305,9 +305,6 @@ const EventContainer = ({ events }) => {
   const [statusFilter, setStatusFilter] = useState(null);
 
   const eventList = useMemo(() => {
-    if (!list.length) {
-      return <Empty />;
-    }
     return list
       .filter(item => (statusFilter ? item.status === statusFilter : true))
       .map(item => <Card eventItem={item} />);
@@ -323,13 +320,11 @@ const EventContainer = ({ events }) => {
 
   return (
     <EventWrapper>
-      {
-        list.length ?
-        <EventFilters
+      <EventFilters
         status={statusFilter}
         handleStatusFilterChanges={handleStatusFilterChanges}
-        /> : null
-      }
+      />
+      {eventList.length === 0 && <Empty />}
       {eventList}
     </EventWrapper>
   );

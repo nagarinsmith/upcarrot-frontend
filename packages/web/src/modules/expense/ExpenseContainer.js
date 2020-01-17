@@ -29,10 +29,7 @@ const ExpenseContainer = ({ expenseList, deleteExpense }) => {
   };
 
   const list = useMemo(() => {
-    if (!expenseList.length) {
-      return <Empty />;
-    }
-
+  
     return expenseList
       .filter(item => (typeFilter ? item.category === typeFilter : true))
       .map(item => (
@@ -46,15 +43,14 @@ const ExpenseContainer = ({ expenseList, deleteExpense }) => {
 
   return (
     <ExpenseListWrapper>
-      {
-        expenseList.length ?
+     
         <ExpenseFilters
         expenseType={typeFilter}
         handleTypeFilterChanges={handleTypeFilterChanges}
-        /> : null
-      }
+        />
       {list}
-      {expenseList.length % 2 === 1 && <Card expenseItem={emptyItem} empty />}
+      {list.length === 0 && <Empty />}
+      {(expenseList.length % 2 === 1 && list.length > 0) && <Card expenseItem={emptyItem} empty />}
     </ExpenseListWrapper>
   );
 };
