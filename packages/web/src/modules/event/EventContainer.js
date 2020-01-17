@@ -300,13 +300,13 @@ const list = [
   }
 ];
 
-const EventContainer = ({ events }) => {
+const EventContainer = ({ events, deleteEvent }) => {
   const [statusFilter, setStatusFilter] = useState(null);
-
+  console.log(statusFilter, events);
   const eventList = useMemo(() => {
-    return list
+    return events
       .filter(item => (statusFilter ? item.status === statusFilter : true))
-      .map(item => <Card eventItem={item} />);
+      .map(item => <Card eventItem={item} deleteEvent={deleteEvent} />);
   });
 
   const handleStatusFilterChanges = value => {

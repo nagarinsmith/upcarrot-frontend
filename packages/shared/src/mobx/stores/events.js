@@ -10,7 +10,15 @@ const eventsStore = types
     isLoading: true,
     events: types.optional(types.array(Events), [])
   })
-  .views(self => ({}))
+  .views(self => ({
+    get getAllEvents() {
+      console.log(getSnapshot(self.events));
+      return getSnapshot(self.events);
+    },
+    getEventById: id => {
+      return self.events.filter(item => item.id === id)[0];
+    }
+  }))
   .actions(self => ({
     setLoading: value => {
       self.isLoading = value;
@@ -31,13 +39,14 @@ const eventsStore = types
       const eventsCalls = getEnv(self).callNames.eventCallNames;
       yield self.fetch(
         eventsCalls.ADD_EVENT,
-        event,
+        { ...event, status: "OPEN" },
         self.onSuccess,
         self.onError
       );
     }),
     deleteEvent: flow(function*(id) {
       self.setLoading(true);
+      console.log(id);
       const eventsCalls = getEnv(self).callNames.eventCallNames;
       yield self.fetch(
         eventsCalls.DELETE_EVENT,

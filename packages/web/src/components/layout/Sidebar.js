@@ -68,6 +68,7 @@ const routes = [
 ];
 
 const SidebarContent = ({ pathname }) => {
+  console.log(pathname.split("/"));
   return (
     <SiderbarContentContainer>
       <SidebarDivider />
@@ -75,7 +76,7 @@ const SidebarContent = ({ pathname }) => {
       {routes.map(item => (
         <SidebarLink
           href="responsive_example.html"
-          active={item.to === pathname}
+          active={item.to === `/${pathname.split("/")[1]}`}
         >
           <Link to={item.to}>{item.title}</Link>
         </SidebarLink>

@@ -15,7 +15,7 @@ import moment from "moment";
 
 const AddEventSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
-  users: yup.array(
+  listOfUsers: yup.array(
     yup.string().email("Some emails are not correctly formated")
   ),
   date: yup.date().required("Date is required")
@@ -93,7 +93,7 @@ const AddEventContainer = ({ isLoading, close, addEvent }) => {
 
   const handleChange = (value, actionMeta) => {
     setValue(value);
-    setValueForm("users", value.map(item => item.value));
+    setValueForm("listOfUsers", value.map(item => item.value));
   };
   const handleInputChange = inputValue => {
     setInputValue(inputValue);
@@ -114,7 +114,7 @@ const AddEventContainer = ({ isLoading, close, addEvent }) => {
 
   useEffect(() => {
     register({ name: "date" }, { required: true });
-    register({ name: "users" }, { required: true });
+    register({ name: "listOfUsers" }, { required: true });
   }, [register]);
 
   const onSubmitForm = ({ date, ...rest }) => {

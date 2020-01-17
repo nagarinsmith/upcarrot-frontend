@@ -32,7 +32,6 @@ const expenseStore = types
     setField: (field, value) => (self[field] = value),
     addBorrow: flow(function*(borrow) {
       self.setLoading(true);
-      console.log(borrow);
       const expenseCalls = getEnv(self).callNames.expenseCallNames;
       yield self.fetch(
         expenseCalls.ADD_BORROW,

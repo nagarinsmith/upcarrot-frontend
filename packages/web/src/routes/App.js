@@ -15,13 +15,13 @@ import Dashboard from "./dashboard/DashboardRoute";
 import Analytic from "./analytic/AnalyticRoute";
 import NotFound from "./common/NotFound";
 import Events from "./events/EventRoute";
+import EventItemRoute from "./events/EventItemRoute";
 import { AppWrapper } from "@/components";
 import { withSidebar } from "src/components/layout/Sidebar";
 import { FloatingActionButton, Modal } from "src/components/index";
 import Expense from "./expenses/ExpenseRoute";
 import AddExpenseContainer from "src/modules/expense/AddExpenseContainer";
 import AddEventContainer from "src/modules/event/AddEventContainer";
-import AddBorrowed from "./borrowed/AddBorrowedRoute";
 import AddBorrowedContainer from "src/modules/borrowed/AddBorrowedContainer";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
@@ -103,6 +103,12 @@ export default class App extends Component {
             />
             <RoutePrivate
               isAuthenticated={auth.isLoggedIn}
+              path="/events/:id"
+              to="/login"
+              component={withSidebar(EventItemRoute)}
+            />
+            <RoutePrivate
+              isAuthenticated={auth.isLoggedIn}
               path="/events"
               to="/login"
               exact
@@ -127,7 +133,11 @@ export default class App extends Component {
           {isOpenEvent && (
             <AddEventContainer
               close={() =>
-                this.setState({ isOpenEvent: false, isOpenExpense: false })
+                this.setState({
+                  isOpenEvent: false,
+                  isOpenExpense: false,
+                  isOpenBorrow: false
+                })
               }
               addEvent={addEvent}
             />

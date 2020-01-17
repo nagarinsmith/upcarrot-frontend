@@ -3,7 +3,7 @@ export default function getEventsApiCalls(api) {
   return {
     getAllEvents: ({ email, password }) => api.get("/events"),
     addEvent: expense => api.post("/events", expense),
-    deleteEvent: ({ id }) => api.delete(`/expenses/${id}`)
+    deleteEvent: ({ id }) => api.delete(`/events/${id}`)
   };
 }
 // here we export each name for each api call - maybe we will generate those

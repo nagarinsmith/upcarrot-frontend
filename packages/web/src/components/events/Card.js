@@ -8,6 +8,7 @@ import {
   faDoorOpen,
   faDoorClosed
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const CardContainer = styled.div`
   background-color: #151523;
@@ -18,6 +19,9 @@ const CardContainer = styled.div`
   position: relative;
   height: 200px;
   cursor: pointer;
+  *:hover {
+    color: white;
+  }
 `;
 
 const DateContent = styled.div`
@@ -76,31 +80,34 @@ const CloseButton = styled.div`
   }
 `;
 
-export const Card = ({ eventItem }) => {
-  const { name, listOfUsers, date, status } = eventItem;
+export const Card = ({ eventItem, deleteEvent }) => {
+  const { name, listOfUsers, date, status, id } = eventItem;
 
   return (
-    <CardContainer>
-      <CloseButton>
-        <FontAwesomeIcon icon={faTimes} />
-      </CloseButton>
-      <DateContent>
-        <LabelImage>
-          <FontAwesomeIcon icon={faCalendarAlt} />
-        </LabelImage>
-        {moment(date).format("DD-MM-YYYY")}
-      </DateContent>
-      <Label>{name}</Label>
-      <Label>Participants: {listOfUsers.length}</Label>
-      <Flag status={status}>
-        <ImageContainer>
-          <FontAwesomeIcon
-            icon={status === "CLOSED" ? faDoorClosed : faDoorOpen}
-            size="2x"
-          />
-        </ImageContainer>
-        {status}
-      </Flag>
-    </CardContainer>
+    <Link to={`/events/${id}`} style={{}}>
+      <CardContainer>
+        <CloseButton onClick={() => deleteEvent(id)}>
+          <FontAwesomeIcon icon={faTimes} />
+        </CloseButton>
+        <DateContent>
+          <LabelImage>
+            <FontAwesomeIcon icon={faCalendarAlt} />
+          </LabelImage>
+          {moment(date).format("DD-MM-YYYY")}
+        </DateContent>
+        <Label>{name}</Label>
+        <Label>Participants: {listOfUsers.length}</Label>
+        <Flag status={status}>
+          <ImageContainer>
+            <FontAwesomeIcon
+              icon={status === "CLOSED" ? faDoorClosed : faDoorOpen}
+              size="2x"
+            />
+          </ImageContainer>
+          {status}
+        </Flag>
+        <Link to={"/events/"}>lapte</Link>
+      </CardContainer>
+    </Link>
   );
 };
