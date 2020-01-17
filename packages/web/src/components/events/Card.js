@@ -80,34 +80,31 @@ const CloseButton = styled.div`
   }
 `;
 
-export const Card = ({ eventItem, deleteEvent }) => {
-  const { name, listOfUsers, date, status, id } = eventItem;
+export const Card = ({ eventItem, splitExpenses }) => {
+  const { name, listOfUsers, date, status } = eventItem;
 
   return (
-    <Link to={`/events/${id}`} style={{}}>
-      <CardContainer>
-        <CloseButton onClick={() => deleteEvent(id)}>
-          <FontAwesomeIcon icon={faTimes} />
-        </CloseButton>
-        <DateContent>
-          <LabelImage>
-            <FontAwesomeIcon icon={faCalendarAlt} />
-          </LabelImage>
-          {moment(date).format("DD-MM-YYYY")}
-        </DateContent>
-        <Label>{name}</Label>
-        <Label>Participants: {listOfUsers.length}</Label>
-        <Flag status={status}>
-          <ImageContainer>
-            <FontAwesomeIcon
-              icon={status === "CLOSED" ? faDoorClosed : faDoorOpen}
-              size="2x"
-            />
-          </ImageContainer>
-          {status}
-        </Flag>
-        <Link to={"/events/"}>lapte</Link>
-      </CardContainer>
-    </Link>
+    <CardContainer>
+      <CloseButton onClick={() => splitExpenses()}>
+        <FontAwesomeIcon icon={faTimes} />
+      </CloseButton>
+      <DateContent>
+        <LabelImage>
+          <FontAwesomeIcon icon={faCalendarAlt} />
+        </LabelImage>
+        {moment(date).format("DD-MM-YYYY")}
+      </DateContent>
+      <Label>{name}</Label>
+      <Label>Participants: {listOfUsers.length}</Label>
+      <Flag status={status}>
+        <ImageContainer>
+          <FontAwesomeIcon
+            icon={status === "CLOSED" ? faDoorClosed : faDoorOpen}
+            size="2x"
+          />
+        </ImageContainer>
+        {status}
+      </Flag>
+    </CardContainer>
   );
 };

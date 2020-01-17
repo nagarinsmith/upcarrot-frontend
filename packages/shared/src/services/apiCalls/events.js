@@ -3,7 +3,8 @@ export default function getEventsApiCalls(api) {
   return {
     getAllEvents: ({ email, password }) => api.get("/events"),
     addEvent: expense => api.post("/events", expense),
-    deleteEvent: ({ id }) => api.delete(`/events/${id}`)
+    deleteEvent: ({ id }) => api.delete(`/events/${id}`),
+    splitExpenses: ({ id }) => api.put(`/events/close/${id}`)
   };
 }
 // here we export each name for each api call - maybe we will generate those
@@ -11,5 +12,6 @@ export const callNames = {
   GET_ALL: "getAllEvents",
   ADD_EVENT: "addEvent",
   ADD_BORROW: "addBorrow",
-  DELETE_EVENT: "deleteEvent"
+  DELETE_EVENT: "deleteEvent",
+  SPLIT_EXPENSES: "splitExpenses"
 };

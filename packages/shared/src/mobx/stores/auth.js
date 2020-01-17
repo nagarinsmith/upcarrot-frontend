@@ -45,11 +45,13 @@ const authStore = types
     onLoginSuccess: response => {
       self.setField("token", response.access_token);
       self.setInStorage("access_token", response.access_token);
+      self.setLoading(false);
     },
 
     onError: error => {
       console.log("AUTH ERROR", error);
       // self.setField("error", error.originalError);
+      self.setLoading(false);
     },
     logout: flow(function*() {
       self.setLoading(true);

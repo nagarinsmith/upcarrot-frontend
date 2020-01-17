@@ -19,9 +19,15 @@ export default class Event extends Component {
   render() {
     const {
       store: {
-        events: { getAllEvents, deleteEvent }
+        events: { getAllEvents, deleteEvent, splitExpenses }
       }
     } = this.props;
-    return <EventContainer events={getAllEvents} deleteEvent={deleteEvent} />;
+    return (
+      <EventContainer
+        events={getAllEvents}
+        deleteEvent={deleteEvent}
+        splitExpenses={splitExpenses}
+      />
+    );
   }
 }

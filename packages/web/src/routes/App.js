@@ -23,11 +23,21 @@ import Expense from "./expenses/ExpenseRoute";
 import AddExpenseContainer from "src/modules/expense/AddExpenseContainer";
 import AddEventContainer from "src/modules/event/AddEventContainer";
 import AddBorrowedContainer from "src/modules/borrowed/AddBorrowedContainer";
+import SpinnerLoader from "src/components/loader/SpinnerLoader";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
 
 // try to use as much function components as possible but when using
 // decorators stick to class components
+
+const routes = [
+  "/expenses",
+  "/analytics",
+  "/events",
+  "/borrowed",
+  "/"
+]
+
 @inject("routing", "store")
 @withRouter
 @observer
@@ -48,12 +58,16 @@ export default class App extends Component {
     const {
       store: {
         auth,
-        expense: { addExpense, addBorrow },
-        events: { addEvent }
+        expense: { 
+          addExpense,
+          addBorrow, 
+        },
+        events: {
+          addEvent,
+        }
       }
     } = this.props;
-
-    const { isOpenEvent, isOpenExpense, isOpenBorrow } = this.state;
+      const { isOpenEvent, isOpenExpense, isOpenBorrow } = this.state;
 
     return (
       <ThemeProvider theme={theme}>
@@ -114,7 +128,7 @@ export default class App extends Component {
               exact
               component={withSidebar(Events)}
             />
-            <Route component={withSidebar(NotFound)} />
+            <Route component={NotFound} />
           </Switch>
         </AppWrapper>
         <Modal
@@ -168,15 +182,16 @@ export default class App extends Component {
           )}
         </Modal>
 
-        {auth.isLoggedIn && (
+        {auth.isLoggedIn && routes.indexOf(this.props.location.pathname) !== -1 && (
           <FloatingActionButton
             addExpense={() => this.setState({ isOpenExpense: true })}
             addEvent={() => this.setState({ isOpenEvent: true })}
             addBorrow={() => {
-              this.setState({ isOpenBorrow: true });
+              this.setState({ isOpenBorrow: true })
             }}
           />
         )}
+        <SpinnerLoader />
       </ThemeProvider>
     );
   }

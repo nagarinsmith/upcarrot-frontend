@@ -57,13 +57,16 @@ const categories = [
 ];
 
 const colourStyles = {
-  control: styles => ({ ...styles, backgroundColor: "white" }),
+  control: styles => ({ ...styles, backgroundColor: "#151523", color: "#FFF" }),
+  menu: styles => ({ ...styles, backgroundColor: "#151523"}),
+  singleValue: styles => ({ ...styles, color: "#FFF"}),
+  placeholder: styles => ({ ...styles, color: "#FFF"}),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     return {
       ...styles,
-      // backgroundColor: isDisabled ? "red" : "salmon",
+      backgroundColor: "#151523",
       color: "#FFF",
-      cursor: isDisabled ? "not-allowed" : "default"
+      cursor: isDisabled ? "not-allowed" : "default",
     };
   }
 };

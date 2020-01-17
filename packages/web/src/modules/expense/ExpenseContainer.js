@@ -5,6 +5,7 @@ import {
   ExpenseCard
 } from "src/components/index";
 import { Card } from "src/components/expenses/Card";
+import Empty from "src/routes/common/Empty";
 
 const emptyItem = {
   id: "",
@@ -28,6 +29,7 @@ const ExpenseContainer = ({ expenseList, deleteExpense }) => {
   };
 
   const list = useMemo(() => {
+  
     return expenseList
       .filter(item => (typeFilter ? item.category === typeFilter : true))
       .map(item => (
@@ -41,12 +43,14 @@ const ExpenseContainer = ({ expenseList, deleteExpense }) => {
 
   return (
     <ExpenseListWrapper>
-      <ExpenseFilters
+     
+        <ExpenseFilters
         expenseType={typeFilter}
         handleTypeFilterChanges={handleTypeFilterChanges}
-      />
+        />
       {list}
-      {expenseList.length % 2 === 1 && <Card expenseItem={emptyItem} empty />}
+      {list.length === 0 && <Empty />}
+      {(expenseList.length % 2 === 1 && list.length > 0) && <Card expenseItem={emptyItem} empty />}
     </ExpenseListWrapper>
   );
 };

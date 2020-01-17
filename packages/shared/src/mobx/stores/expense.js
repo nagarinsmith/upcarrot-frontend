@@ -7,7 +7,7 @@ import { getEnv } from "mobx-state-tree";
 const expenseStore = types
   .model("Auth", {
     token: "",
-    isLoading: true,
+    isLoading: false,
     expenses: types.optional(types.array(Expense), [])
   })
   .views(self => ({
@@ -87,6 +87,7 @@ const expenseStore = types
     onError: error => {
       console.log("AUTH ERROR", error);
       self.setField("error", error.originalError);
+      self.setLoading(false);
     },
     onSuccess: response => {
       self.getAll();

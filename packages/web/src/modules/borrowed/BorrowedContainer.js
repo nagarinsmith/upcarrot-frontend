@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { BorrowedWrapper, BorrowedFilters, Card } from "src/components/index";
+import Empty from "src/routes/common/Empty";
 const emptyItem = {
   id: "",
   name: "",
@@ -40,14 +41,18 @@ const BorrowedContainer = ({ borrowedList, closeBorrow }) => {
 
   return (
     <BorrowedWrapper>
-      <BorrowedFilters
+      {
+        borrowedList.length ?
+        <BorrowedFilters
         typeFilter={typeFilter}
         statusFilter={statusFilter}
         handleTypeFilterChanges={handleTypeFilterChanges}
         handleStatusFilterChanges={handleStatusFilterChanges}
-      />
+        /> : null
+      }
       {list}
-      {borrowedList.length % 2 === 1 && <Card borrowedItem={emptyItem} empty />}
+      {list.length === 0 && <Empty />}
+      {(borrowedList.length % 2 === 1 && list.length > 0) && <Card borrowedItem={emptyItem} empty />}
     </BorrowedWrapper>
   );
 };
