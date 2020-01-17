@@ -50,7 +50,7 @@ const ExpenseContainer = ({ expenseList, deleteExpense }) => {
         />
       {list}
       {list.length === 0 && <Empty />}
-      {(expenseList.length % 2 === 1 && list.length > 0) && <Card expenseItem={emptyItem} empty />}
+      {(list.length % 2 === 1 && list.length > 0) && <Card expenseItem={emptyItem} empty />}
     </ExpenseListWrapper>
   );
 };

@@ -123,7 +123,6 @@ const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
                 styles={colourStyles}
                 value={select}
                 onChange={value => {
-                  console.log(value);
                   setSelect(value);
                   setValue("category", value.value);
                 }}

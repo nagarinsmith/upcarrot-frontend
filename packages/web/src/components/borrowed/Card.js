@@ -117,7 +117,7 @@ const statusIcon = {
 
 export const Card = ({ borrowedItem, closeBorrow, empty }) => {
   const { id, otherParticipant, total, category, status, date } = borrowedItem;
-console.log(closeBorrow)
+
   return (
     <CardContainer empty={empty}>
       <Flag category={category} position />

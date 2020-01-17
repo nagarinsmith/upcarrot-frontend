@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Empty from "src/routes/common/Empty";
 
 // one dumb component in which we pass props and actions
 export default class DashboardContainer extends Component {
@@ -10,9 +11,7 @@ export default class DashboardContainer extends Component {
     } = this.props;
   
     return (
-      <div>
-        <div onClick={logout}>Logout</div>
-      </div>
+      <Empty></Empty>
     );
   }
 }

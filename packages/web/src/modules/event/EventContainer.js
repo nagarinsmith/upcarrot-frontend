@@ -6,17 +6,16 @@ import Empty from "src/routes/common/Empty";
 
 const EventContainer = ({ events, deleteEvent, splitExpenses }) => {
   const [statusFilter, setStatusFilter] = useState(null);
-  console.log(statusFilter, events);
   const eventList = useMemo(() => {
     return events
       .filter(item => (statusFilter ? item.status === statusFilter : true))
-      .map(item => (
-        <Card
+      .map(item => {
+       return <Card
           eventItem={item}
           deleteEvent={deleteEvent}
           splitExpenses={splitExpenses}
         />
-      ));
+      });
   });
 
   const handleStatusFilterChanges = value => {
