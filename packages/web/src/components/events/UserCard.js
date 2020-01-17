@@ -45,11 +45,9 @@ const Flag = styled.div`
 
 export const Card = ({ user }) => {
   return (
-    <Link to={`/events/${2}`} style={{}}>
-      <CardContainer>
-        <Label>{user}</Label>
-        <Flag />
-      </CardContainer>
-    </Link>
+    <CardContainer>
+      <Label>{user}</Label>
+      <Flag />
+    </CardContainer>
   );
 };
