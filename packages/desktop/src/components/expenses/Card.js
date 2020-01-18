@@ -1,14 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { TYPES, STATUS } from "src/modules/borrowed/borrowedList";
+import { TYPES } from "src/modules/borrowed/expenseConstants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as moment from "moment";
 import {
-  faArrowUp,
+  faHamburger,
+  faShoppingCart,
+  faFileInvoice,
+  faHome,
+  faBoxOpen,
   faCalendarAlt,
   faDollarSign,
-  faHourglassHalf,
-  faCheckCircle
+  faTimes
 } from "@fortawesome/free-solid-svg-icons";
 
 const CardContainer = styled.div`
@@ -55,17 +58,6 @@ const Flag = styled.div`
   }
 `;
 
-const ImageContainer = styled.div`
-  ${({ category, status }) =>
-    `transform: rotate(${
-      status === STATUS.open
-        ? category === TYPES.owed
-          ? "45deg"
-          : "225deg"
-        : "0"
-    })`};
-`;
-
 const LabelImage = styled.div`
   margin-right: 8px;
 `;
@@ -103,12 +95,35 @@ const AmountContent = styled.div`
 const Label = styled.label`
   letter-spacing: 2px;
   font-weight: 700;
+
+  @media (max-width: 400px) {
+    font-size: 16px;
+  }
 `;
 
-const statusIcon = {
-  [STATUS.open]: faArrowUp,
-  [STATUS.pending]: faHourglassHalf,
-  [STATUS.closed]: faCheckCircle
+const CloseButton = styled.div`
+  background-color: #ff4a4a;
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ff6666;
+  }
+`;
+
+export const typeIcon = {
+  [TYPES.food]: faHamburger,
+  [TYPES.shopping]: faShoppingCart,
+  [TYPES.bills]: faFileInvoice,
+  [TYPES.rent]: faHome,
+  [TYPES.others]: faBoxOpen
 };
 
 const categoryColors = {
@@ -119,11 +134,18 @@ const categoryColors = {
   OTHERS: "#BFF287"
 };
 
-export const Card = ({ expenseItem, empty }) => {
-  const { description, total, category, status, date } = expenseItem;
+export const Card = ({ expenseItem, empty, deleteExpense }) => {
+  const { id, description, total, category, date } = expenseItem;
   return (
     <CardContainer empty={empty}>
-      <Flag category={category} position />
+      <Flag category={category} position>
+        <FontAwesomeIcon icon={typeIcon[category] || faBoxOpen} size="3x" />
+      </Flag>
+      {deleteExpense && (
+        <CloseButton onClick={() => deleteExpense(id)}>
+          <FontAwesomeIcon icon={faTimes} />
+        </CloseButton>
+      )}
       <DateContent>
         <LabelImage>
           <FontAwesomeIcon icon={faCalendarAlt} />
@@ -141,9 +163,6 @@ export const Card = ({ expenseItem, empty }) => {
         </LabelImage>
       </AmountContent>
       <Flag category={category}>
-        <ImageContainer category={category} status={status}>
-          <FontAwesomeIcon icon={statusIcon[status]} size="3x" />
-        </ImageContainer>
         <Label>{category}</Label>
       </Flag>
     </CardContainer>

@@ -6,14 +6,27 @@ import AnalyticContainer from "src/modules/chart/AnalyticContainer";
 @inject("store")
 @observer
 export default class Analytic extends Component {
+  componentDidMount() {
+    const {
+      store: {
+        expense: { getAll }
+      }
+    } = this.props;
+
+    getAll();
+  }
+
   state = {};
   render() {
     const {
-      store: { auth, example }
+      store: {
+        expense: { getExpenses, getBorrowed }
+      }
     } = this.props;
+
     return (
       <div>
-        <AnalyticContainer />
+        <AnalyticContainer expenses={getExpenses} borrows={getBorrowed} />
       </div>
     );
   }

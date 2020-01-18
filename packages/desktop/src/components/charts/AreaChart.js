@@ -6,130 +6,145 @@ import {
   VictoryTheme,
   VictoryLegend
 } from "victory";
+import * as moment from "moment";
+import { TYPES } from "src/modules/borrowed/expenseConstants";
 
-export const AreaChart = ({ children }) => (
-  <VictoryChart
-    height={500}
-    animate={{ duration: 1000 }}
-    events={[
-      {
-        childName: "all",
-        target: "data",
-        eventHandlers: {
-          onMouseOver: () => {
-            return [
-              {
-                childName: "area-1",
-                target: "data",
-                mutation: props => ({
-                  style: Object.assign({}, props.style, { fill: "#F78914" })
-                })
-              },
-              {
-                childName: "area-2",
-                target: "data",
-                mutation: props => ({
-                  style: Object.assign({}, props.style, { fill: "#92CD28" })
-                })
-              },
-              {
-                childName: "area-3",
-                target: "data",
-                mutation: props => ({
-                  style: Object.assign({}, props.style, { fill: "#B6EE56" })
-                })
-              },
-              {
-                childName: "area-4",
-                target: "data",
-                mutation: props => ({
-                  style: Object.assign({}, props.style, { fill: "#44f804" })
-                })
-              }
-            ];
-          },
-          onMouseOut: () => {
-            return [
-              {
-                childName: "area-1",
-                target: "data",
-                mutation: props => ({
-                  style: Object.assign({}, props.style, { fill: "#262626" })
-                })
-              },
-              {
-                childName: "area-2",
-                target: "data",
-                mutation: props => ({
-                  style: Object.assign({}, props.style, { fill: "#404040" })
-                })
-              },
-              {
-                childName: "area-3",
-                target: "data",
-                mutation: props => ({
-                  style: Object.assign({}, props.style, { fill: "#808080" })
-                })
-              },
-              {
-                childName: "area-4",
-                target: "data",
-                mutation: props => ({
-                  style: Object.assign({}, props.style, { fill: "#44f804" })
-                })
-              }
-            ];
+function transpose(a) {
+  return Object.keys(a[0]).map(function(c) {
+    return a.map(function(r) {
+      return r[c];
+    });
+  });
+}
+
+const categoryColors = {
+  BILLS: "#81BEF1",
+  RENT: "#EB5972",
+  FOOD: "#AD8BF2",
+  SHOPPING: "#6FF2C5",
+  OTHERS: "#BFF287"
+};
+
+export const AreaChart = ({ expenses }) => {
+  const getData = value => {
+    const startDate = moment()
+      .startOf("month")
+      .subtract(value, "months");
+    const endDate = moment()
+      .endOf("month")
+      .subtract(value, "months");
+
+    const justExpenses = (expenses || []).filter(
+      item => item.category !== "OWED" && item.category !== "BORROWED"
+    );
+    const dates = (justExpenses || []).filter(
+      item =>
+        moment(item.date).isAfter(startDate) &&
+        moment(item.date).isSameOrBefore(endDate)
+    );
+
+    return [
+      ...Object.entries(TYPES)
+        .filter(([, item]) => item !== "OWED" && item !== "BORROWED")
+        .sort()
+        .map(([, item]) => {
+          const y = dates
+            .filter(d => d.category === item)
+            .map(item => item.total)
+            .reduce((a, b) => {
+              return a + b;
+            }, 0);
+          return {
+            x: endDate.format("MMMM"),
+            // label: value === 0 ? item : "",
+            y,
+            color: categoryColors[item]
+          };
+        })
+    ];
+  };
+
+  const MONTHS = [0, 1, 2, 3, 4];
+
+  const data = MONTHS.map(k => getData(k));
+  const invData = transpose(data);
+
+  return (
+    <VictoryChart
+      height={500}
+      animate={{ duration: 1000 }}
+      theme={{
+        ...VictoryTheme.grayscale,
+        axis: {
+          style: {
+            tickLabels: {
+              // this changed the color of my numbers to white
+              fill: "white"
+            }
           }
         }
-      }
-    ]}
-  >
-    <VictoryLegend
-      x={70}
-      y={10}
-      orientation="horizontal"
-      gutter={20}
-      style={{ border: { stroke: "black" } }}
-      colorScale={["#B6EE56", "#92CD28", "#FFA33F", "#92CD28", "#F78914"]}
-      data={[
-        { name: "Personal", labels: { fill: "#B6EE56" } },
-        { name: "Group", labels: { fill: "#92CD28" } },
-        { name: "Maintenance", labels: { fill: "#FFA33F" } }
-      ]}
-    />
-
-    <VictoryStack>
-      <VictoryArea
-        name="area-1"
-        style={{ labels: { fontSize: 15, fill: "white" } }}
+      }}
+      style={{ labels: { fill: "white" } }}
+    >
+      <VictoryLegend
+        x={10}
+        y={0}
+        orientation="horizontal"
+        gutter={30}
+        style={{ border: { stroke: "black" } }}
+        colorScale={["#81BEF1", "#AD8BF2", "#BFF287", "#EB5972", "#6FF2C5"]}
         data={[
-          { x: "January", y: 5, label: "personal" },
-          { x: "March", y: 10 },
-          { x: "April", y: 7 },
-          { x: "May", y: 14 }
+          { name: "BILLS", labels: { fill: "#81BEF1" } },
+          { name: "FOOD", labels: { fill: "#AD8BF2" } },
+          { name: "OTHERS", labels: { fill: "#BFF287" } },
+          { name: "RENT", labels: { fill: "#EB5972" } },
+          { name: "SHOPPING", labels: { fill: "#6FF2C5" } }
         ]}
       />
 
-      <VictoryArea
-        name="area-2"
-        style={{ labels: { fontSize: 15, fill: "white" } }}
-        data={[
-          { x: "January", y: 10, label: "maintenance" },
-          { x: "March", y: 5 },
-          { x: "April", y: 3 },
-          { x: "May", y: 5 }
-        ]}
-      />
-      <VictoryArea
-        name="area-3"
-        style={{ labels: { fontSize: 15, fill: "white" } }}
-        data={[
-          { x: "January", y: 7, label: "group" },
-          { x: "March", y: 2 },
-          { x: "April", y: 6 },
-          { x: "May", y: 7 }
-        ]}
-      />
-    </VictoryStack>
-  </VictoryChart>
-);
+      <VictoryStack>
+        {invData.map((category, k) => (
+          <VictoryArea
+            name={`area-${k}`}
+            style={{
+              labels: { fontSize: 15, fill: category[0].color },
+              data: { fill: category[0].color }
+            }}
+            data={category.reverse()}
+          />
+        ))}
+        {/* <VictoryArea
+          name="area-1"
+          style={{ labels: { fontSize: 15, fill: "white" } }}
+          data={[
+            { x: "January", y: 5, label: "personal" },
+            { x: "March", y: 10 },
+            { x: "April", y: 7 },
+            { x: "May", y: 14 }
+          ]}
+        />
+
+        <VictoryArea
+          name="area-2"
+          style={{ labels: { fontSize: 15, fill: "white" } }}
+          data={[
+            { x: "January", y: 10, label: "maintenance" },
+            { x: "March", y: 5 },
+            { x: "April", y: 3 },
+            { x: "May", y: 5 }
+          ]}
+        />
+        <VictoryArea
+          name="area-3"
+          style={{ labels: { fontSize: 15, fill: "white" } }}
+          data={[
+            { x: "January", y: 7, label: "group" },
+            { x: "March", y: 2 },
+            { x: "April", y: 6 },
+            { x: "May", y: 7 }
+          ]}
+        />*/}
+      </VictoryStack>
+    </VictoryChart>
+  );
+};

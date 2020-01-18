@@ -1,14 +1,19 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
 import styled from "styled-components";
-import { TYPES, STATUS } from "src/modules/borrowed/borrowedList";
+import { TYPES } from "src/modules/borrowed/expenseConstants";
 
 const Filters = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   padding: 40px 55px 10px 55px;
   min-width: 400px;
+
+  .ui.toggle.buttons {
+    display: flex !important  ;
+    flex-wrap: wrap !important;
+  }
 
   @media (max-width: 920px) {
     flex-direction: column;
@@ -21,52 +26,44 @@ const FilterItem = styled.div`
   margin: 10px 0;
 `;
 
-export const ExpenseFilters = ({
-  typeFilter,
-  statusFilter,
-  handleStatusFilterChanges,
-  handleTypeFilterChanges
-}) => {
+export const ExpenseFilters = ({ expenseType, handleTypeFilterChanges }) => {
   return (
     <Filters>
       <FilterItem>
         <Button.Group toggle>
           <Button
-            positive={typeFilter === TYPES.borrowed}
-            onClick={() => handleTypeFilterChanges(TYPES.borrowed)}
+            positive={expenseType === TYPES.food}
+            onClick={() => handleTypeFilterChanges(TYPES.food)}
           >
-            BORROWED
+            FOOD
           </Button>
           <Button.Or />
           <Button
-            positive={typeFilter === TYPES.owed}
-            onClick={() => handleTypeFilterChanges(TYPES.owed)}
+            positive={expenseType === TYPES.shopping}
+            onClick={() => handleTypeFilterChanges(TYPES.shopping)}
           >
-            OWED
-          </Button>
-        </Button.Group>
-      </FilterItem>
-      <FilterItem>
-        <Button.Group toggle>
-          <Button
-            positive={statusFilter === STATUS.open}
-            onClick={() => handleStatusFilterChanges(STATUS.open)}
-          >
-            open
+            SHOPPING
           </Button>
           <Button.Or />
           <Button
-            positive={statusFilter === STATUS.pending}
-            onClick={() => handleStatusFilterChanges(STATUS.pending)}
+            positive={expenseType === TYPES.rent}
+            onClick={() => handleTypeFilterChanges(TYPES.rent)}
           >
-            PENDING
+            RENT
           </Button>
           <Button.Or />
           <Button
-            positive={statusFilter === STATUS.closed}
-            onClick={() => handleStatusFilterChanges(STATUS.closed)}
+            positive={expenseType === TYPES.bills}
+            onClick={() => handleTypeFilterChanges(TYPES.bills)}
           >
-            CLOSED
+            BILLS
+          </Button>
+          <Button.Or />
+          <Button
+            positive={expenseType === TYPES.others}
+            onClick={() => handleTypeFilterChanges(TYPES.others)}
+          >
+            OTHERS
           </Button>
         </Button.Group>
       </FilterItem>

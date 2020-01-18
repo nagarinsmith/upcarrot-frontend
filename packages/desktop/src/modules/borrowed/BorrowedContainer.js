@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { BorrowedWrapper, BorrowedFilters, Card } from "src/components/index";
-
+import Empty from "src/routes/common/Empty";
 const emptyItem = {
   id: "",
   name: "",
@@ -11,7 +11,7 @@ const emptyItem = {
   date: new Date()
 };
 
-const BorrowedContainer = ({ borrowedList }) => {
+const BorrowedContainer = ({ borrowedList, closeBorrow, hide }) => {
   const [typeFilter, setTypeFilter] = useState(null);
   const [statusFilter, setStatusFilter] = useState(null);
 
@@ -34,19 +34,26 @@ const BorrowedContainer = ({ borrowedList }) => {
     return borrowedList
       .filter(item => (statusFilter ? item.status === statusFilter : true))
       .filter(item => (typeFilter ? item.category === typeFilter : true))
-      .map(item => <Card borrowedItem={item} key={item.id} />);
+      .map(item => (
+        <Card borrowedItem={item} closeBorrow={closeBorrow} key={item.id} />
+      ));
   });
 
   return (
     <BorrowedWrapper>
-      <BorrowedFilters
-        typeFilter={typeFilter}
-        statusFilter={statusFilter}
-        handleTypeFilterChanges={handleTypeFilterChanges}
-        handleStatusFilterChanges={handleStatusFilterChanges}
-      />
+      {!hide && (
+        <BorrowedFilters
+          typeFilter={typeFilter}
+          statusFilter={statusFilter}
+          handleTypeFilterChanges={handleTypeFilterChanges}
+          handleStatusFilterChanges={handleStatusFilterChanges}
+        />
+      )}
       {list}
-      {/* <Card borrowedItem={emptyItem} empty={borrowedList.length % 2 === 1} /> */}
+      {list.length === 0 && <Empty />}
+      {borrowedList.length % 2 === 1 && list.length > 0 && (
+        <Card borrowedItem={emptyItem} empty />
+      )}
     </BorrowedWrapper>
   );
 };

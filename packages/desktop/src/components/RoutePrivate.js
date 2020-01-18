@@ -10,13 +10,13 @@ const RoutePrivate = ({
 }) => (
   <Route
     {...rest}
-    render={props =>
-      isAuthenticated ? (
+    render={props => {
+      return isAuthenticated ? (
         <Component {...props} />
       ) : (
-        <Redirect to={`${to}?redirect=${rest.path}`} />
-      )
-    }
+        <Redirect to={`${to}?redirect=${rest.location.pathname}`} />
+      );
+    }}
   />
 );
 

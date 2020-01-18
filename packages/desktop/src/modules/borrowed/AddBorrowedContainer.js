@@ -15,8 +15,10 @@ import * as moment from "moment";
 
 const AddExpenseSchema = yup.object().shape({
   total: yup.number().required("Total is required"),
-  description: yup.string().required("Description is required"),
-  category: yup.string().required(),
+  otherParticipant: yup
+    .string()
+    .required("Other participant is required")
+    .email(),
   date: yup.date().required()
 });
 
@@ -49,24 +51,21 @@ const DateContainer = styled.div`
 `;
 
 const categories = [
-  { label: "BILLS", value: "BILLS" },
-  { label: "RENT", value: "RENT" },
-  { label: "FOOD", value: "FOOD" },
-  { label: "SHOPPING", value: "SHOPPING" },
-  { label: "OTHERS", value: "OTHERS" }
+  { label: "OWED", value: "OWED" },
+  { label: "BORROWED", value: "BORROWED" }
 ];
 
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: "#151523", color: "#FFF" }),
-  menu: styles => ({ ...styles, backgroundColor: "#151523"}),
-  singleValue: styles => ({ ...styles, color: "#FFF"}),
-  placeholder: styles => ({ ...styles, color: "#FFF"}),
+  menu: styles => ({ ...styles, backgroundColor: "#151523" }),
+  singleValue: styles => ({ ...styles, color: "#FFF" }),
+  placeholder: styles => ({ ...styles, color: "#FFF" }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     return {
       ...styles,
       backgroundColor: "#151523",
       color: "#FFF",
-      cursor: isDisabled ? "not-allowed" : "default",
+      cursor: isDisabled ? "not-allowed" : "default"
     };
   }
 };
@@ -75,23 +74,20 @@ export const Error = styled.div`
   color: red;
 `;
 
-const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
+const AddBorrowContainer = ({ close, open, isLoading, addBorrow }) => {
   const { handleSubmit, setValue, watch, register, errors } = useForm({
     validationSchema: AddExpenseSchema
   });
 
   const values = watch();
 
-  const [select, setSelect] = useState("");
-
   useEffect(() => {
     register({ name: "date" }, { required: true });
-    register({ name: "category" }, { required: true });
   }, [register]);
 
   const onSubmitForm = ({ date, ...rest }) => {
     close();
-    addExpense({ ...rest, date: moment(date).toISOString() });
+    addBorrow({ ...rest, date: moment(date).toISOString() });
   };
 
   return (
@@ -106,9 +102,9 @@ const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
         <ExpenseForm onSubmit={handleSubmit(onSubmitForm)}>
           <ExpenseInput
             type="text"
-            label="Description"
-            name="description"
-            placeholder="Bought things"
+            label="To/From Whom"
+            name="otherParticipant"
+            placeholder="johnDoe@email.com"
             ref={register({ required: true })}
             disabled={isLoading}
           />
@@ -128,17 +124,6 @@ const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
                 onChange={value => setValue("date", value)}
               />
             </DateContainer>
-            <div style={{ width: "230px", padding: "20px" }}>
-              <Select
-                options={categories}
-                styles={colourStyles}
-                value={select || []}
-                onChange={value => {
-                  setSelect(value);
-                  setValue("category", value.value);
-                }}
-              />
-            </div>
           </RowContainer>
         </ExpenseForm>
         {Object.keys(errors).length > 0 && <Error>Invalid Data</Error>}
@@ -161,4 +146,4 @@ const AddExpenseContainer = ({ close, open, isLoading, addExpense }) => {
   );
 };
 
-export default AddExpenseContainer;
+export default AddBorrowContainer;

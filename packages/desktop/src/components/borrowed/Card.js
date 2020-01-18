@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TYPES, STATUS } from "src/modules/borrowed/borrowedList";
+import { TYPES, STATUS } from "src/modules/borrowed/expenseConstants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as moment from "moment";
 import {
@@ -115,8 +115,8 @@ const statusIcon = {
   [STATUS.closed]: faCheckCircle
 };
 
-export const Card = ({ borrowedItem, empty }) => {
-  const { otherParticipant, total, category, status, date } = borrowedItem;
+export const Card = ({ borrowedItem, closeBorrow, empty }) => {
+  const { id, otherParticipant, total, category, status, date } = borrowedItem;
 
   return (
     <CardContainer empty={empty}>
@@ -137,9 +137,15 @@ export const Card = ({ borrowedItem, empty }) => {
           <FontAwesomeIcon icon={faDollarSign} />
         </LabelImage>
       </AmountContent>
-      <Flag category={category}>
+      <Flag
+        category={category}
+        onClick={status === STATUS.open ? () => closeBorrow(id) : null}
+      >
         <ImageContainer category={category} status={status}>
-          <FontAwesomeIcon icon={statusIcon[status]} size="3x" />
+          <FontAwesomeIcon
+            icon={statusIcon[status] || faHourglassHalf}
+            size="3x"
+          />
         </ImageContainer>
         <Label>{category === TYPES.owed ? "LEND" : "BORROW"}</Label>
       </Flag>

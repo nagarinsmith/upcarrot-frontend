@@ -14,17 +14,24 @@ import { RoutePrivate, RoutePublic } from "../components";
 import Dashboard from "./dashboard/DashboardRoute";
 import Analytic from "./analytic/AnalyticRoute";
 import NotFound from "./common/NotFound";
-import Events from "./events/EventsRoute";
+import Events from "./events/EventRoute";
+import EventItemRoute from "./events/EventItemRoute";
 import { AppWrapper } from "@/components";
 import { withSidebar } from "src/components/layout/Sidebar";
 import { FloatingActionButton, Modal } from "src/components/index";
 import Expense from "./expenses/ExpenseRoute";
 import AddExpenseContainer from "src/modules/expense/AddExpenseContainer";
+import AddEventContainer from "src/modules/event/AddEventContainer";
+import AddBorrowedContainer from "src/modules/borrowed/AddBorrowedContainer";
+import SpinnerLoader from "src/components/loader/SpinnerLoader";
 // import Header from "@/components/layout/Header/Header";
 // import PresentationRoute from "./presentation/PresentationRoute";
 
 // try to use as much function components as possible but when using
 // decorators stick to class components
+
+const routes = ["/expenses", "/analytics", "/events", "/borrowed", "/"];
+
 @inject("routing", "store")
 @withRouter
 @observer
@@ -45,11 +52,11 @@ export default class App extends Component {
     const {
       store: {
         auth,
-        expense: { addExpense }
+        expense: { addExpense, addBorrow },
+        events: { addEvent }
       }
     } = this.props;
-
-    const { isOpen } = this.state;
+    const { isOpenEvent, isOpenExpense, isOpenBorrow } = this.state;
 
     return (
       <ThemeProvider theme={theme}>
@@ -99,26 +106,86 @@ export default class App extends Component {
             />
             <RoutePrivate
               isAuthenticated={auth.isLoggedIn}
+              path="/events/:id"
+              to="/login"
+              component={withSidebar(EventItemRoute)}
+            />
+            <RoutePrivate
+              isAuthenticated={auth.isLoggedIn}
               path="/events"
               to="/login"
               exact
               component={withSidebar(Events)}
             />
-            <Route component={withSidebar(NotFound)} />
+            <Route component={NotFound} />
           </Switch>
         </AppWrapper>
-        <Modal isOpen={isOpen} close={() => this.setState({ isOpen: false })}>
-          <AddExpenseContainer
-            close={() => this.setState({ isOpen: false })}
-            onSubmitForm={() => this.setState({ isOpen: false })}
-            addExpense={addExpense}
-          />
+        <Modal
+          isOpen={isOpenEvent || isOpenExpense || isOpenBorrow}
+          title={
+            isOpenEvent
+              ? "Add new Event"
+              : isOpenExpense
+              ? "Add new Expense"
+              : "Add new Borrow"
+          }
+          close={() =>
+            this.setState({
+              isOpenEvent: false,
+              isOpenExpense: false,
+              isOpenBorrow: false
+            })
+          }
+        >
+          {isOpenEvent && (
+            <AddEventContainer
+              close={() =>
+                this.setState({
+                  isOpenEvent: false,
+                  isOpenExpense: false,
+                  isOpenBorrow: false
+                })
+              }
+              addEvent={addEvent}
+            />
+          )}
+          {isOpenExpense && (
+            <AddExpenseContainer
+              close={() =>
+                this.setState({
+                  isOpenEvent: false,
+                  isOpenExpense: false,
+                  isOpenBorrow: false
+                })
+              }
+              addExpense={addExpense}
+            />
+          )}
+          {isOpenBorrow && (
+            <AddBorrowedContainer
+              close={() =>
+                this.setState({
+                  isOpenEvent: false,
+                  isOpenExpense: false,
+                  isOpenBorrow: false
+                })
+              }
+              addBorrow={addBorrow}
+            />
+          )}
         </Modal>
-        {auth.isLoggedIn && (
-          <FloatingActionButton
-            addExpense={() => this.setState({ isOpen: true })}
-          />
-        )}
+
+        {auth.isLoggedIn &&
+          routes.indexOf(this.props.location.pathname) !== -1 && (
+            <FloatingActionButton
+              addExpense={() => this.setState({ isOpenExpense: true })}
+              addEvent={() => this.setState({ isOpenEvent: true })}
+              addBorrow={() => {
+                this.setState({ isOpenBorrow: true });
+              }}
+            />
+          )}
+        <SpinnerLoader />
       </ThemeProvider>
     );
   }

@@ -13,7 +13,7 @@ const modalStyles = {
   }
 };
 
-const ModalExampleDimmer = ({ isOpen, close, children }) => (
+const ModalExampleDimmer = ({ isOpen, close, children, title }) => (
   <Modal
     dimmer="blurring"
     open={isOpen}
@@ -27,30 +27,9 @@ const ModalExampleDimmer = ({ isOpen, close, children }) => (
         ...modalStyles.borderBottom
       }}
     >
-      Add expense
+      {title}
     </Modal.Header>
-    <Modal.Content
-      style={{
-        ...modalStyles.text,
-        ...modalStyles.body,
-        ...modalStyles.borderBottom
-      }}
-    >
-      <Modal.Description>{children}</Modal.Description>
-    </Modal.Content>
-    <Modal.Actions style={{ ...modalStyles.text, ...modalStyles.body }}>
-      <Button className="cancelNumber" onClick={close}>
-        Cancel
-      </Button>
-      <Button
-        positive
-        className="saveButton"
-        icon="checkmark"
-        labelPosition="right"
-        content="Save"
-        onClick={close}
-      />
-    </Modal.Actions>
+    {children}
   </Modal>
 );
 

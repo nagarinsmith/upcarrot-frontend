@@ -197,7 +197,9 @@ const reset = css`
     color: rgb(21, 21, 35) !important;
     font-family: "Roboto", sans-serif !important;
   }
-
+  a:hover {
+    color: white;
+  }
   /* // body {
   //     box-sizing: border-box;
   //     background: linear-gradient(rgba(0, 0, 0, 1), rgb(142, 14, 0));

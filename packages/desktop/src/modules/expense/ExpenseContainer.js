@@ -4,6 +4,8 @@ import {
   ExpenseFilters,
   ExpenseCard
 } from "src/components/index";
+import { Card } from "src/components/expenses/Card";
+import Empty from "src/routes/common/Empty";
 
 const emptyItem = {
   id: "",
@@ -15,9 +17,8 @@ const emptyItem = {
   date: new Date()
 };
 
-const ExpenseContainer = ({ expenseList }) => {
+const ExpenseContainer = ({ expenseList, deleteExpense, hide }) => {
   const [typeFilter, setTypeFilter] = useState(null);
-  const [statusFilter, setStatusFilter] = useState(null);
 
   const handleTypeFilterChanges = value => {
     if (value === typeFilter) {
@@ -26,31 +27,34 @@ const ExpenseContainer = ({ expenseList }) => {
       setTypeFilter(value);
     }
   };
-  const handleStatusFilterChanges = value => {
-    if (value === statusFilter) {
-      setStatusFilter(null);
-    } else {
-      setStatusFilter(value);
-    }
-  };
 
   const list = useMemo(() => {
     return expenseList
-      .filter(item => (statusFilter ? item.status === statusFilter : true))
       .filter(item => (typeFilter ? item.category === typeFilter : true))
-      .map(item => <ExpenseCard expenseItem={item} key={item.id} />);
+      .map(item => (
+        <ExpenseCard
+          expenseItem={item}
+          key={item.id}
+          deleteExpense={deleteExpense}
+        />
+      ));
   });
+
+  console.log(expenseList);
 
   return (
     <ExpenseListWrapper>
-      <ExpenseFilters
-        typeFilter={typeFilter}
-        statusFilter={statusFilter}
-        handleTypeFilterChanges={handleTypeFilterChanges}
-        handleStatusFilterChanges={handleStatusFilterChanges}
-      />
+      {!hide && (
+        <ExpenseFilters
+          expenseType={typeFilter}
+          handleTypeFilterChanges={handleTypeFilterChanges}
+        />
+      )}
       {list}
-      {/* <Card expenseItem={emptyItem} empty={expenseList.length % 2 === 1} /> */}
+      {list.length === 0 && <Empty />}
+      {list.length % 2 === 1 && list.length > 0 && (
+        <Card expenseItem={emptyItem} empty />
+      )}
     </ExpenseListWrapper>
   );
 };
