@@ -38,14 +38,21 @@ const authStore = types
       yield self.fetch(
         authCalls.REGISTER,
         { email, password },
-        self.onLoginSuccess,
+        () => self.onRegisterSuccess(email, password),
         self.onError
       );
     }),
     onLoginSuccess: response => {
-      self.setField("token", response.access_token);
-      self.setInStorage("access_token", response.access_token);
+      console.log(response.headers.authorization);
+      self.setField("token", response.headers.authorization);
+      self.setInStorage("access_token", response.headers.authorization);
       self.setLoading(false);
+    },
+    onRegisterSuccess: (email, password) => {
+      // self.setField("token", response.access_token);
+      // self.setInStorage("access_token", response.access_token);
+      // self.setLoading(false);
+      self.login(email, password);
     },
 
     onError: error => {

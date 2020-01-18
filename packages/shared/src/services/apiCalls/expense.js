@@ -1,11 +1,11 @@
 // Here we will make our api calls regarding authentication
 export default function getAuthApiCalls(api) {
   return {
-    getAll: ({ email, password }) => api.get("/expenses"),
-    addExpense: expense => api.post("/expenses", expense),
-    deleteExpense: ({ id }) => api.delete(`/expenses/${id}`),
+    getAll: ({ email, password }) => api.get("/expense-borrowed/expenses"),
+    addExpense: expense => api.post("/expense-borrowed/expenses", expense),
+    deleteExpense: ({ id }) => api.delete(`/expense-borrowed/${id}`),
     closeBorrow: ({ id }) => api.put(`/borrow/close`, { id }),
-    addBorrow: borrow => api.post("/expenses", borrow) //@TODO: de schimbat
+    addBorrow: borrow => api.post("/expense-borrowed/borrowed", borrow) //@TODO: de schimbat
   };
 }
 // here we export each name for each api call - maybe we will generate those

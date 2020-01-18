@@ -81,7 +81,7 @@ const expenseStore = types
       );
     }),
     onGetAllSuccess: response => {
-      self.setField("expenses", response);
+      self.setField("expenses", response.data);
       self.setLoading(false);
     },
     onError: error => {

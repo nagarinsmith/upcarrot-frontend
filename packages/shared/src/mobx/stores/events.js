@@ -66,7 +66,7 @@ const eventsStore = types
       );
     }),
     onGetAllSuccess: response => {
-      self.setField("events", response);
+      self.setField("events", response.data);
       self.setLoading(false);
     },
     onError: error => {

@@ -15,7 +15,7 @@ const baseStore = types
       const response = yield getEnv(self).apiService[apiCall](params);
 
       if (response.ok) {
-        onSuccess(response.data);
+        onSuccess(response);
         self.error = {};
       } else {
         self.error = {
