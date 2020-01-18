@@ -67,11 +67,13 @@ const Title = styled.div`
   display: flex;
 `;
 
-const UserContainer = styled.div``;
+const UserContainer = styled.div`
+  display:flex;
+  flex-wrap: wrap;
+`;
 
 const EventItemContainer = ({ event = {}, closeEvent }) => {
   const [isOpen, setOpen] = useState(false);
-
   return (
     <Container>
       <HeaderContainer>

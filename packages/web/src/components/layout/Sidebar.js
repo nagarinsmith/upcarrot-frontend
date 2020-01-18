@@ -7,6 +7,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { observer, inject } from "mobx-react";
 
 const SidebarLink = styled.div`
   color: white;
@@ -20,6 +21,11 @@ const SidebarLink = styled.div`
     props.active &&
     "font-weight: 700;" +
       "background: #44f804; box-shadow: 0 3px 25px rgb(248, 168, 20, 0.3), 0 3px 6px rgb(248, 168, 20, 0.22);"}
+
+  &:last-child {
+    position: absolute;
+    bottom: 0;
+  }
 
   a:hover {
     color: inherit;
@@ -64,19 +70,24 @@ const routes = [
   {
     to: "/events",
     title: "events"
+  },
+  {
+    to: "/login",
+    title: "logout"
   }
 ];
 
-const SidebarContent = ({ pathname }) => {
-  console.log(pathname.split("/"));
+const SidebarContent = ({ pathname, logout }) => {
   return (
     <SiderbarContentContainer>
       <SidebarDivider />
       <Title styles="font-size: 30px" />
       {routes.map(item => (
         <SidebarLink
+          key={item.title}
           href="responsive_example.html"
           active={item.to === `/${pathname.split("/")[1]}`}
+          onClick={() => item.to === "/login" && logout()}
         >
           <Link to={item.to}>{item.title}</Link>
         </SidebarLink>
@@ -147,6 +158,8 @@ const MenuIcon = styled.div`
   align-items: center;
 `;
 
+@inject("store")
+@observer
 export default class SidebarTest extends React.Component {
   constructor(props) {
     super(props);
@@ -190,9 +203,12 @@ export default class SidebarTest extends React.Component {
 
   render() {
     const {
+      store: {
+        auth: { logout }
+      },
       location: { pathname }
     } = this.props;
-    const sidebar = <SidebarContent pathname={pathname} />;
+    const sidebar = <SidebarContent pathname={pathname} logout={logout} />;
     const { docked } = this.state;
 
     const sidebarProps = {

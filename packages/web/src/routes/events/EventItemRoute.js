@@ -18,7 +18,6 @@ export default class Event extends Component {
   }
   state = {};
   render() {
-    console.log(this.props);
     const {
       store: {
         events: { getEventById, deleteEvent, events }
@@ -27,7 +26,7 @@ export default class Event extends Component {
         params: { id }
       }
     } = this.props;
-    console.log(events, id);
+
     return <EventItemContainer event={getEventById(id)} />;
   }
 }

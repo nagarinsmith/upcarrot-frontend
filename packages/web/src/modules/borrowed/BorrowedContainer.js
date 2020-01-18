@@ -41,15 +41,12 @@ const BorrowedContainer = ({ borrowedList, closeBorrow }) => {
 
   return (
     <BorrowedWrapper>
-      {
-        borrowedList.length ?
         <BorrowedFilters
         typeFilter={typeFilter}
         statusFilter={statusFilter}
         handleTypeFilterChanges={handleTypeFilterChanges}
         handleStatusFilterChanges={handleStatusFilterChanges}
-        /> : null
-      }
+      /> 
       {list}
       {list.length === 0 && <Empty />}
       {(borrowedList.length % 2 === 1 && list.length > 0) && <Card borrowedItem={emptyItem} empty />}

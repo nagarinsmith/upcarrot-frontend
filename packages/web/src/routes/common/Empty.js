@@ -34,7 +34,7 @@ const Empty = ({ }) => {
      <EmptyContainer>
          <EmptyWrapper>
             <EmptyIcon>
-              <i class="fas fa-search"></i>
+              <i className="fas fa-search"></i>
             </EmptyIcon>
             <EmptyText>
               Nothing found here...

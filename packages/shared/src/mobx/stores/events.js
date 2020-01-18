@@ -12,7 +12,6 @@ const eventsStore = types
   })
   .views(self => ({
     get getAllEvents() {
-      console.log(getSnapshot(self.events));
       return getSnapshot(self.events);
     },
     getEventById: id => {
@@ -46,7 +45,6 @@ const eventsStore = types
     }),
     deleteEvent: flow(function*(id) {
       self.setLoading(true);
-      console.log(id);
       const eventsCalls = getEnv(self).callNames.eventCallNames;
       yield self.fetch(
         eventsCalls.DELETE_EVENT,
