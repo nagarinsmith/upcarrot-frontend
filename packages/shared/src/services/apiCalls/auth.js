@@ -4,7 +4,7 @@ export default function getAuthApiCalls(api) {
     login: ({ email, password }) =>
       api.post("/login", { username: email, password }),
     register: ({ email, password }) =>
-      api.post(`/register?email=${email}&password=${password}`)
+      api.post(`/register`, { username: email, password })
   };
 }
 // here we export each name for each api call - maybe we will generate those
