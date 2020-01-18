@@ -1,22 +1,9 @@
-import React, {useEffect} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import {observer, inject} from 'mobx-react';
+import React, {useCallback} from 'react';
+import {LoginContainer} from '../../../modules';
 
-const Test = ({
-  store: {
-    auth: {login, isLoggedIn},
-  },
-  navigation: {navigate},
-}) => {
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('App');
-    }
-  }, [isLoggedIn]);
-  return (
-    <TouchableOpacity onPress={() => login('oare', 'merge')}>
-      <Text>login</Text>
-    </TouchableOpacity>
-  );
+const LoginScreen = ({navigation: {navigate}}) => {
+  const redirect = useCallback(() => navigate('App'), [navigate]);
+
+  return <LoginContainer redirect={redirect} />;
 };
-export default inject('store')(observer(Test));
+export default LoginScreen;

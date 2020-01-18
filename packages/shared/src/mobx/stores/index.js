@@ -6,5 +6,5 @@ export const stores = {
   auth: types.optional(authStore, {}),
   expense: types.optional(expenseStore, {}),
   events: types.optional(eventStore, {}),
-  example: "Salut "
+  example: "Work in Progres... "
 };

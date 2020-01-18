@@ -14,12 +14,14 @@
     "xcode": "open ios/myprojectname.xcworkspace"
   },
   "dependencies": {
+    "react-native": "0.61.3",
     "react-native-gesture-handler": "^1.5.0",
+    "react-native-material-textfield": "^0.16.1",
     "react-native-reanimated": "^1.4.0",
     "react-native-screens": "^1.0.0-alpha.23",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.3",
-    "react-native": "0.61.3"
+    "react-navigation-tabs": "^2.7.0"
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "0.0.5",
@@ -30,5 +32,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
   }
 }
