@@ -11,7 +11,7 @@ const emptyItem = {
   date: new Date()
 };
 
-const BorrowedContainer = ({ borrowedList, closeBorrow }) => {
+const BorrowedContainer = ({ borrowedList, closeBorrow, hide }) => {
   const [typeFilter, setTypeFilter] = useState(null);
   const [statusFilter, setStatusFilter] = useState(null);
 
@@ -41,15 +41,19 @@ const BorrowedContainer = ({ borrowedList, closeBorrow }) => {
 
   return (
     <BorrowedWrapper>
+      {!hide && (
         <BorrowedFilters
-        typeFilter={typeFilter}
-        statusFilter={statusFilter}
-        handleTypeFilterChanges={handleTypeFilterChanges}
-        handleStatusFilterChanges={handleStatusFilterChanges}
-      /> 
+          typeFilter={typeFilter}
+          statusFilter={statusFilter}
+          handleTypeFilterChanges={handleTypeFilterChanges}
+          handleStatusFilterChanges={handleStatusFilterChanges}
+        />
+      )}
       {list}
       {list.length === 0 && <Empty />}
-      {(borrowedList.length % 2 === 1 && list.length > 0) && <Card borrowedItem={emptyItem} empty />}
+      {borrowedList.length % 2 === 1 && list.length > 0 && (
+        <Card borrowedItem={emptyItem} empty />
+      )}
     </BorrowedWrapper>
   );
 };

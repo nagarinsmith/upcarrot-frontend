@@ -68,24 +68,34 @@ const Title = styled.div`
 `;
 
 const UserContainer = styled.div`
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
 `;
 
-const EventItemContainer = ({ event = {}, closeEvent }) => {
+const EventItemContainer = ({
+  event = {},
+  closeEvent,
+  addExpense,
+  deleteExpense,
+  splitExpenses,
+  navigateEvents
+}) => {
   const [isOpen, setOpen] = useState(false);
   return (
     <Container>
       <HeaderContainer>
         <NameContainer>
           {event && event.name}
-          <CloseButton
-            onClick={closeEvent}
-            color="#ff4a4a"
-            hoverColor="#ff6666"
-          >
-            <FontAwesomeIcon icon={faTimes} />
-          </CloseButton>
+          {event.status !== "CLOSED" && (
+            <CloseButton
+              onClick={() => splitExpenses(event.id, navigateEvents)}
+              color="#ff4a4a"
+              hoverColor="#ff6666"
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </CloseButton>
+          )}
         </NameContainer>
         <Date>
           <FontAwesomeIcon icon={faCalendarAlt} />
@@ -95,25 +105,32 @@ const EventItemContainer = ({ event = {}, closeEvent }) => {
       <Title>Users:</Title>
       <UserContainer>
         {(event.listOfUsers || []).map(user => (
-          <UserCard user={user} />
+          <UserCard user={user} key={user} />
         ))}
       </UserContainer>
       <Title>
         Expenses:{" "}
-        <CloseButton
-          onClick={() => setOpen(true)}
-          color="#44f804"
-          hoverColor="#BFF287"
-        >
-          <FontAwesomeIcon icon={faPlus} />
-        </CloseButton>
+        {event.status !== "CLOSED" && (
+          <CloseButton
+            onClick={() => setOpen(true)}
+            color="#44f804"
+            hoverColor="#BFF287"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </CloseButton>
+        )}
       </Title>
-      <ExpenseContainer expenseList={(event && event.listOfExpenses) || []} />
+      <ExpenseContainer
+        expenseList={(event && event.listOfExpenses) || []}
+        deleteExpense={
+          event.status !== "CLOSED" && (id => deleteExpense(id, event.id))
+        }
+      />
       <Modal isOpen={isOpen} title="Add new Event" close={() => setOpen(false)}>
         {isOpen && (
           <AddExpenseContainer
             close={() => setOpen(false)}
-            addExpense={() => console.log(event.id)}
+            addExpense={data => addExpense(data, event.id)}
           />
         )}
       </Modal>

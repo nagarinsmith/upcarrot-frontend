@@ -35,7 +35,7 @@ const expenseStore = types
       const expenseCalls = getEnv(self).callNames.expenseCallNames;
       yield self.fetch(
         expenseCalls.ADD_BORROW,
-        { ...borrow, status: "PENDING" },
+        { ...borrow, status: "PENDING", category: "BORROWED" },
         self.onSuccess,
         self.onError
       );

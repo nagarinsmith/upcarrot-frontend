@@ -19,7 +19,6 @@ const AddExpenseSchema = yup.object().shape({
     .string()
     .required("Other participant is required")
     .email(),
-  category: yup.string().required(),
   date: yup.date().required()
 });
 
@@ -58,15 +57,15 @@ const categories = [
 
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: "#151523", color: "#FFF" }),
-  menu: styles => ({ ...styles, backgroundColor: "#151523"}),
-  singleValue: styles => ({ ...styles, color: "#FFF"}),
-  placeholder: styles => ({ ...styles, color: "#FFF"}),
+  menu: styles => ({ ...styles, backgroundColor: "#151523" }),
+  singleValue: styles => ({ ...styles, color: "#FFF" }),
+  placeholder: styles => ({ ...styles, color: "#FFF" }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     return {
       ...styles,
       backgroundColor: "#151523",
       color: "#FFF",
-      cursor: isDisabled ? "not-allowed" : "default",
+      cursor: isDisabled ? "not-allowed" : "default"
     };
   }
 };
@@ -82,11 +81,8 @@ const AddBorrowContainer = ({ close, open, isLoading, addBorrow }) => {
 
   const values = watch();
 
-  const [select, setSelect] = useState("");
-
   useEffect(() => {
     register({ name: "date" }, { required: true });
-    register({ name: "category" }, { required: true });
   }, [register]);
 
   const onSubmitForm = ({ date, ...rest }) => {
@@ -128,17 +124,6 @@ const AddBorrowContainer = ({ close, open, isLoading, addBorrow }) => {
                 onChange={value => setValue("date", value)}
               />
             </DateContainer>
-            <div style={{ width: "230px", padding: "20px" }}>
-              <Select
-                options={categories}
-                styles={colourStyles}
-                value={select || []}
-                onChange={value => {
-                  setSelect(value);
-                  setValue("category", value.value);
-                }}
-              />
-            </div>
           </RowContainer>
         </ExpenseForm>
         {Object.keys(errors).length > 0 && <Error>Invalid Data</Error>}

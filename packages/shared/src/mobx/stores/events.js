@@ -53,12 +53,35 @@ const eventsStore = types
         self.onError
       );
     }),
-    splitExpenses: flow(function*(id) {
+    splitExpenses: flow(function*(id, onSuccess) {
       self.setLoading(true);
       const eventsCalls = getEnv(self).callNames.eventCallNames;
       yield self.fetch(
         eventsCalls.SPLIT_EXPENSES,
         { id },
+        () => {
+          onSuccess();
+          self.onSuccess();
+        },
+        self.onError
+      );
+    }),
+    addExpense: flow(function* addExpense(expense, id) {
+      self.setLoading(true);
+      const eventsCalls = getEnv(self).callNames.eventCallNames;
+      yield self.fetch(
+        eventsCalls.ADD_EXPENSE,
+        { expense, id },
+        self.onSuccess,
+        self.onError
+      );
+    }),
+    deleteExpense: flow(function* deleteExpense(id, eventId) {
+      self.setLoading(true);
+      const eventsCalls = getEnv(self).callNames.eventCallNames;
+      yield self.fetch(
+        eventsCalls.DELETE_EXPENSE,
+        { id, eventId },
         self.onSuccess,
         self.onError
       );
@@ -77,5 +100,8 @@ const eventsStore = types
     }
   }));
 
-const enhancedEvents = types.compose(eventsStore, baseStore);
+const enhancedEvents = types.compose(
+  eventsStore,
+  baseStore
+);
 export default enhancedEvents;

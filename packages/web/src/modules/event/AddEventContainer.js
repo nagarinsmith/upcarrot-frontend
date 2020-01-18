@@ -56,15 +56,15 @@ const DateContainer = styled.div`
 
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: "#151523", color: "#FFF" }),
-  menu: styles => ({ ...styles, backgroundColor: "#151523"}),
-  singleValue: styles => ({ ...styles, color: "#FFF"}),
-  placeholder: styles => ({ ...styles, color: "#FFF"}),
+  menu: styles => ({ ...styles, backgroundColor: "#151523" }),
+  singleValue: styles => ({ ...styles, color: "#FFF" }),
+  placeholder: styles => ({ ...styles, color: "#FFF" }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     return {
       ...styles,
       backgroundColor: "#151523",
       color: "#FFF",
-      cursor: isDisabled ? "not-allowed" : "default",
+      cursor: isDisabled ? "not-allowed" : "default"
     };
   }
 };
@@ -95,8 +95,8 @@ const AddEventContainer = ({ isLoading, close, addEvent }) => {
   const [value, setValue] = useState([]);
 
   const handleChange = (value, actionMeta) => {
-    setValue(value);
-    setValueForm("listOfUsers", value.map(item => item.value));
+    setValue(value || []);
+    setValueForm("listOfUsers", (value || []).map(item => item.value));
   };
   const handleInputChange = inputValue => {
     setInputValue(inputValue);

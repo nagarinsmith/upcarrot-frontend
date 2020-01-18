@@ -30,13 +30,7 @@ import SpinnerLoader from "src/components/loader/SpinnerLoader";
 // try to use as much function components as possible but when using
 // decorators stick to class components
 
-const routes = [
-  "/expenses",
-  "/analytics",
-  "/events",
-  "/borrowed",
-  "/"
-]
+const routes = ["/expenses", "/analytics", "/events", "/borrowed", "/"];
 
 @inject("routing", "store")
 @withRouter
@@ -58,16 +52,11 @@ export default class App extends Component {
     const {
       store: {
         auth,
-        expense: { 
-          addExpense,
-          addBorrow, 
-        },
-        events: {
-          addEvent,
-        }
+        expense: { addExpense, addBorrow },
+        events: { addEvent }
       }
     } = this.props;
-      const { isOpenEvent, isOpenExpense, isOpenBorrow } = this.state;
+    const { isOpenEvent, isOpenExpense, isOpenBorrow } = this.state;
 
     return (
       <ThemeProvider theme={theme}>
@@ -141,7 +130,11 @@ export default class App extends Component {
               : "Add new Borrow"
           }
           close={() =>
-            this.setState({ isOpenEvent: false, isOpenExpense: false })
+            this.setState({
+              isOpenEvent: false,
+              isOpenExpense: false,
+              isOpenBorrow: false
+            })
           }
         >
           {isOpenEvent && (
@@ -182,15 +175,16 @@ export default class App extends Component {
           )}
         </Modal>
 
-        {auth.isLoggedIn && routes.indexOf(this.props.location.pathname) !== -1 && (
-          <FloatingActionButton
-            addExpense={() => this.setState({ isOpenExpense: true })}
-            addEvent={() => this.setState({ isOpenEvent: true })}
-            addBorrow={() => {
-              this.setState({ isOpenBorrow: true })
-            }}
-          />
-        )}
+        {auth.isLoggedIn &&
+          routes.indexOf(this.props.location.pathname) !== -1 && (
+            <FloatingActionButton
+              addExpense={() => this.setState({ isOpenExpense: true })}
+              addEvent={() => this.setState({ isOpenEvent: true })}
+              addBorrow={() => {
+                this.setState({ isOpenBorrow: true });
+              }}
+            />
+          )}
         <SpinnerLoader />
       </ThemeProvider>
     );

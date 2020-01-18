@@ -139,10 +139,13 @@ export const Card = ({ borrowedItem, closeBorrow, empty }) => {
       </AmountContent>
       <Flag
         category={category}
-        onClick={status === STATUS.open && (() => closeBorrow(id))}
+        onClick={status === STATUS.open ? () => closeBorrow(id) : null}
       >
         <ImageContainer category={category} status={status}>
-          <FontAwesomeIcon icon={statusIcon[status]} size="3x" />
+          <FontAwesomeIcon
+            icon={statusIcon[status] || faHourglassHalf}
+            size="3x"
+          />
         </ImageContainer>
         <Label>{category === TYPES.owed ? "LEND" : "BORROW"}</Label>
       </Flag>

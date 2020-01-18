@@ -139,11 +139,13 @@ export const Card = ({ expenseItem, empty, deleteExpense }) => {
   return (
     <CardContainer empty={empty}>
       <Flag category={category} position>
-        <FontAwesomeIcon icon={typeIcon[category]} size="3x" />
+        <FontAwesomeIcon icon={typeIcon[category] || faBoxOpen} size="3x" />
       </Flag>
-      <CloseButton onClick={() => deleteExpense(id)}>
-        <FontAwesomeIcon icon={faTimes} />
-      </CloseButton>
+      {deleteExpense && (
+        <CloseButton onClick={() => deleteExpense(id)}>
+          <FontAwesomeIcon icon={faTimes} />
+        </CloseButton>
+      )}
       <DateContent>
         <LabelImage>
           <FontAwesomeIcon icon={faCalendarAlt} />

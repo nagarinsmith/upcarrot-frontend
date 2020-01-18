@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import EventItemContainer from "src/modules/event/EventItemContainer";
-import { withRouter } from "react-router";
 
 @inject("store")
 @observer
-// @withRouter
 export default class Event extends Component {
   componentDidMount() {
     const {
@@ -20,13 +18,22 @@ export default class Event extends Component {
   render() {
     const {
       store: {
-        events: { getEventById, deleteEvent, events }
+        events: { getEventById, addExpense, deleteExpense, splitExpenses }
       },
       match: {
         params: { id }
-      }
+      },
+      history
     } = this.props;
 
-    return <EventItemContainer event={getEventById(id)} />;
+    return (
+      <EventItemContainer
+        event={getEventById(id)}
+        addExpense={addExpense}
+        splitExpenses={splitExpenses}
+        deleteExpense={deleteExpense}
+        navigateEvents={() => history.push("/events")}
+      />
+    );
   }
 }

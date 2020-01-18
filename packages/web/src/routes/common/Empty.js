@@ -1,8 +1,8 @@
-import React, { Component, View} from "react";
+import React, { Component, View } from "react";
 import styled from "styled-components";
 
 export const EmptyContainer = styled.div`
-  height: 800px;
+  height: 50vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -19,29 +19,27 @@ export const EmptyWrapper = styled.div`
   height: 100%;
 `;
 export const EmptyIcon = styled.div`
-  display:flex;
-  font-size:40px;
-  padding:10px;
+  display: flex;
+  font-size: 40px;
+  padding: 10px;
 `;
 export const EmptyText = styled.div`
-  display:flex;
-  font-size:30px;
-  padding:10px;
+  display: flex;
+  font-size: 30px;
+  padding: 10px;
 `;
 
-const Empty = ({ }) => {
-    return (
-     <EmptyContainer>
-         <EmptyWrapper>
-            <EmptyIcon>
-              <i className="fas fa-search"></i>
-            </EmptyIcon>
-            <EmptyText>
-              Nothing found here...
-            </EmptyText>
-         </EmptyWrapper>
-     </EmptyContainer>
-    );
-  };
+const Empty = ({}) => {
+  return (
+    <EmptyContainer>
+      <EmptyWrapper>
+        <EmptyIcon>
+          <i className="fas fa-search" />
+        </EmptyIcon>
+        <EmptyText>Nothing found here...</EmptyText>
+      </EmptyWrapper>
+    </EmptyContainer>
+  );
+};
 
-  export default Empty;
+export default Empty;

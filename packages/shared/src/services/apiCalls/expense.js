@@ -4,7 +4,7 @@ export default function getAuthApiCalls(api) {
     getAll: ({ email, password }) => api.get("/expense-borrowed/expenses"),
     addExpense: expense => api.post("/expense-borrowed/expenses", expense),
     deleteExpense: ({ id }) => api.delete(`/expense-borrowed/${id}`),
-    closeBorrow: ({ id }) => api.put(`/borrow/close`, { id }),
+    closeBorrow: ({ id }) => api.put(`/expense-borrowed/borrowed/close/${id}`),
     addBorrow: borrow => api.post("/expense-borrowed/borrowed", borrow) //@TODO: de schimbat
   };
 }

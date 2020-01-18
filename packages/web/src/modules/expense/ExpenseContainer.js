@@ -17,7 +17,7 @@ const emptyItem = {
   date: new Date()
 };
 
-const ExpenseContainer = ({ expenseList, deleteExpense }) => {
+const ExpenseContainer = ({ expenseList, deleteExpense, hide }) => {
   const [typeFilter, setTypeFilter] = useState(null);
 
   const handleTypeFilterChanges = value => {
@@ -29,7 +29,6 @@ const ExpenseContainer = ({ expenseList, deleteExpense }) => {
   };
 
   const list = useMemo(() => {
-  
     return expenseList
       .filter(item => (typeFilter ? item.category === typeFilter : true))
       .map(item => (
@@ -41,16 +40,21 @@ const ExpenseContainer = ({ expenseList, deleteExpense }) => {
       ));
   });
 
+  console.log(expenseList);
+
   return (
     <ExpenseListWrapper>
-     
+      {!hide && (
         <ExpenseFilters
-        expenseType={typeFilter}
-        handleTypeFilterChanges={handleTypeFilterChanges}
+          expenseType={typeFilter}
+          handleTypeFilterChanges={handleTypeFilterChanges}
         />
+      )}
       {list}
       {list.length === 0 && <Empty />}
-      {(list.length % 2 === 1 && list.length > 0) && <Card expenseItem={emptyItem} empty />}
+      {list.length % 2 === 1 && list.length > 0 && (
+        <Card expenseItem={emptyItem} empty />
+      )}
     </ExpenseListWrapper>
   );
 };

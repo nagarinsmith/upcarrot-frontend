@@ -80,15 +80,15 @@ const CloseButton = styled.div`
   }
 `;
 
-export const Card = ({ eventItem, splitExpenses }) => {
+export const Card = ({ eventItem, deleteEvent }) => {
   const { name, listOfUsers, date, status, id } = eventItem;
 
   return (
-    <Link to={`/events/${id}`}>
-      <CardContainer>
-        <CloseButton onClick={() => splitExpenses()}>
-          <FontAwesomeIcon icon={faTimes} />
-        </CloseButton>
+    <CardContainer>
+      {/* <CloseButton onClick={() => deleteEvent(id)}>
+        <FontAwesomeIcon icon={faTimes} />
+      </CloseButton> */}
+      <Link to={`/events/${id}`}>
         <DateContent>
           <LabelImage>
             <FontAwesomeIcon icon={faCalendarAlt} />
@@ -106,7 +106,7 @@ export const Card = ({ eventItem, splitExpenses }) => {
           </ImageContainer>
           {status}
         </Flag>
-      </CardContainer>
-    </Link>
+      </Link>
+    </CardContainer>
   );
 };
