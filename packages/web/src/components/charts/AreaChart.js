@@ -22,7 +22,7 @@ const categoryColors = {
   RENT: "#EB5972",
   FOOD: "#AD8BF2",
   SHOPPING: "#6FF2C5",
-  OTHERS: "#BFF287"
+  OTHER: "#BFF287"
 };
 
 export const AreaChart = ({ expenses }) => {
@@ -96,7 +96,7 @@ export const AreaChart = ({ expenses }) => {
         data={[
           { name: "BILLS", labels: { fill: "#81BEF1" } },
           { name: "FOOD", labels: { fill: "#AD8BF2" } },
-          { name: "OTHERS", labels: { fill: "#BFF287" } },
+          { name: "OTHER", labels: { fill: "#BFF287" } },
           { name: "RENT", labels: { fill: "#EB5972" } },
           { name: "SHOPPING", labels: { fill: "#6FF2C5" } }
         ]}

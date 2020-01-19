@@ -11,5 +11,5 @@ export const TYPES = {
   bills: "BILLS",
   shopping: "SHOPPING",
   rent: "RENT",
-  others: "OTHERS"
+  others: "OTHER"
 };

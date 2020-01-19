@@ -147,7 +147,7 @@ export const Card = ({ borrowedItem, closeBorrow, empty }) => {
             size="3x"
           />
         </ImageContainer>
-        <Label>{category === TYPES.owed ? "LEND" : "BORROW"}</Label>
+        <Label>{category === TYPES.owed ? "PAY" : "BORROW"}</Label>
       </Flag>
     </CardContainer>
   );

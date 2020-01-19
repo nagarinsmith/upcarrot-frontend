@@ -131,7 +131,7 @@ const categoryColors = {
   RENT: "#EB5972",
   FOOD: "#AD8BF2",
   SHOPPING: "#6FF2C5",
-  OTHERS: "#BFF287"
+  OTHER: "#BFF287"
 };
 
 export const Card = ({ expenseItem, empty, deleteExpense }) => {
