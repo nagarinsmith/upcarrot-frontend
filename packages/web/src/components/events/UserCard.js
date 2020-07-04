@@ -16,6 +16,9 @@ const CardContainer = styled.div`
   *:hover {
     color: white;
   }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Label = styled.div`

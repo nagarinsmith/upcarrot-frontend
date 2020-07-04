@@ -28,7 +28,9 @@ export default class LoginRoute extends Component {
     return (
       <LoginContainer
         onSubmitForm={this.onSubmitForm}
-        authError={authError && authError.status === 401}
+        authError={
+          authError && (authError.status === 401 || authError.status === 403)
+        }
         isLoading={isLoading}
       />
     );

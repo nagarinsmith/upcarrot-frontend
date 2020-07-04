@@ -15,7 +15,7 @@ const create = (storage, redirect, baseURL = "http://localhost:8080/") => {
 
   api.addAsyncResponseTransform(async response => {
     console.log("RESPONSE", response);
-    if (response.status === 401) {
+    if (response.status === 401 || response.status === 403) {
       await storage.remove("access_token");
       redirect && redirect();
     }

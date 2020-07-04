@@ -53,7 +53,7 @@ const categories = [
   { label: "RENT", value: "RENT" },
   { label: "FOOD", value: "FOOD" },
   { label: "SHOPPING", value: "SHOPPING" },
-  { label: "OTHERS", value: "OTHERS" }
+  { label: "OTHER", value: "OTHER" }
 ];
 
 const colourStyles = {
